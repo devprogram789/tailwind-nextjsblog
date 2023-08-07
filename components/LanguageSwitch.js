@@ -2,7 +2,6 @@ import Flag_of_Thailand from '@/data/img/Flag_of_Thailand.png'
 import Flag_United_States from '@/data/img/Flag_of_the_United_States.png'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import SearchIcon from '@/data/img/search-icon.png'
 import Image from 'next/image'
 
