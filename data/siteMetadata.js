@@ -4,7 +4,7 @@ const siteMetadata = {
   headerTitle: 'มหาวิทยาลัยบูรพา อันดับที่ 1',
   description: 'มหาวิทยาลัยบูรพา อันดับที่ 1 ได้รับรางวัล “มหาวิทยาลัยสุขภาพ ระดับ 4 ดาว',
   language: 'th-th',
-  theme: 'system',
+  theme: 'light',
   siteUrl: 'https://www.buu.ac.th',
   siteRepo: '#',
   siteLogo: '/static/images/logo.png',

@@ -31,8 +31,8 @@ export default function Home({ posts }) {
             height="1080"
           />
         </div>
-        <div className="py-2">
-          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover">
+        <div className="py-2 hidden sm:block">
+          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover  rounded-2xl">
             <div className="w-full h-auto mt-48 grid grid-cols-4 content-end px-28 gap-10">
               <div className="col-span-2 w-full h-auto ">
                 <Image
@@ -43,7 +43,7 @@ export default function Home({ posts }) {
                   height="300"
                 />
               </div>
-              <div className="h-[300px] col-span-2 text-gray-100 overflow-y-auto">
+              <div className="rounded-2xl px-4 py-4 bg-white/50 hover:bg-black/50 h-[330px] col-span-2 text-gray-100 overflow-y-auto">
                 <p>
                   มหาวิทยาลัยบูรพา
                   เป็นสถาบันอุดมศึกษาของรัฐแห่งแรกที่ตั้งอยู่ในส่วนภูมิภาคของประเทศไทย
@@ -96,11 +96,8 @@ export default function Home({ posts }) {
                       />
                       <div className="py-4">
                         <div className="text-center">
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link
-                              href={`/blog/${slug}`}
-                              className="text-[#0F8787] dark:text-gray-100"
-                            >
+                          <h2 className="text-2xl font-bold leading-8 tracking-tight line-clamp-1">
+                            <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
                               {title}
                             </Link>
                           </h2>
@@ -140,7 +137,7 @@ export default function Home({ posts }) {
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
-            href="/blog"
+            href="/"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
