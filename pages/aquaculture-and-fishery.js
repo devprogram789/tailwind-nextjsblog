@@ -6,6 +6,7 @@ import { PageSEO } from '@/components/SEO'
 import Image from 'next/image'
 import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
+import { DataRacx } from '@/data/dataset'
 
 export const POSTS_PER_PAGE = 9
 
@@ -147,12 +148,42 @@ export default function Agriculture({ posts, initialDisplayPosts, pagination }) 
         width="1920"
         height="1080"
       />
-      <ListAquacultureAndFisheryLayout
-        posts={posts}
-        initialDisplayPosts={initialDisplayPosts}
-        pagination={pagination}
-        title="Aquaculture and fishery Posts"
-      />
+      <div className="px-0 md:px-8 bg-[url('/static/images/bg-blog.png')] bg-cover">
+        <ListAquacultureAndFisheryLayout
+          posts={posts}
+          initialDisplayPosts={initialDisplayPosts}
+          pagination={pagination}
+          title="Aquaculture and fishery Posts"
+        />
+        <div>
+          <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
+            งานวิจัยพร้อมใช้
+          </h2>
+          <div className="py-8 px-4 grid grid-cols-1 md:grid-cols-2 gap-10">
+            {DataRacx.map((dx, ix) => (
+              <Link
+                key={ix}
+                href="#"
+                className="group block w-full mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
+              >
+                <div className="flex items-center space-x-3">
+                  <Image
+                    className="h-6 w-6 stroke-sky-500 group-hover:stroke-white"
+                    src={'/static/images/folder-icon.png'}
+                    alt="banner"
+                    width="100"
+                    height="100"
+                  />
+                  <h3 className="text-slate-900 group-hover:text-white text-sm font-semibold">
+                    {dx.title}
+                  </h3>
+                </div>
+                <p className="text-slate-500 group-hover:text-white text-sm">{dx.detail}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   )
 }

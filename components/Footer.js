@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="w-full">
           <div className="mt-10 md:mt-0">
             <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">ช่องทางการติดต่อ</h3>
-            <div className="w-full flex items-center">
+            <div className="w-full flex items-center gap-4">
               <div>
                 <Image
                   className="w-full h-auto object-contain px-2"
