@@ -80,7 +80,7 @@ export default function About({ authorDetails }) {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-10 py-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 py-4">
             {Dataaaaa.map((dax) => (
               <div key={dax.id} className="text-center">
                 <Image
