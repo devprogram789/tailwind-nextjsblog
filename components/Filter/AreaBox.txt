@@ -1,0 +1,60 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { filterActions } from '../../store/filterSlice'
+import Link from 'next/link'
+
+const AreaBox = ({ of, type, min, max }) => {
+  const filters = useSelector((state) => state.filter)
+  const [isChecked, setIsChecked] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (type === 'brand') {
+      if (filters.brands.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'category') {
+      if (filters.categories.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'amount') {
+      if (filters.amount > min && filters.amount < max) {
+        setIsChecked(true)
+      }
+    }
+  }, [])
+
+  const clickHandler = () => {
+    if (isChecked) {
+      if (type === 'brand') {
+        dispatch(filterActions.deselectBrand(of))
+      } else if (type === 'category') {
+        dispatch(filterActions.deselectCategory(of))
+      } else if (type === 'amount') {
+        dispatch(filterActions.deselectMoney(of))
+      }
+    } else {
+      if (type === 'brand') {
+        dispatch(filterActions.selectBrand(of))
+      } else if (type === 'category') {
+        dispatch(filterActions.selectCategory(of))
+      } else if (type === 'amount') {
+        dispatch(filterActions.selectMoney(of))
+      }
+    }
+
+    setIsChecked((prevValue) => !prevValue)
+  }
+
+  return isChecked ? (
+    <Button className="h-6 checked text-[#1B65A6] text-base font-semibold" onClick={clickHandler}>
+      {of}
+    </Button>
+  ) : (
+    <Link className="w-full" href={`/buycars?min=${min}&max=${max}`}>
+      <Button className="text-[#1B65A6] text-base font-semibold">{of}</Button>
+    </Link>
+  )
+}
+
+export default AreaBox

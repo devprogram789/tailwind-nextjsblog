@@ -3,24 +3,26 @@ import { createSlice } from '@reduxjs/toolkit'
 const filterSlice = createSlice({
   name: 'filter',
   initialState: {
-    brands: [],
+    AreaCode: [],
     categories: [],
-    amount: [],
-    color: [],
-    transmissionType: [],
-    odometerReading: [],
-    year: [],
-    model: [],
-    pricesort: 'default',
-    sort: 'default',
+    area: [],
+    // color: [],
+    // transmissionType: [],
+    // odometerReading: [],
+    // year: [],
+    // model: [],
+    // pricesort: 'default',
+    // sort: 'default',
   },
   reducers: {
-    selectBrand(state, action) {
-      state.brands.push(action.payload)
+    selectAreaCode(state, action) {
+      state.AreaCode.push(action.payload)
     },
-    deselectBrand(state, action) {
-      state.brands = state.brands.filter((value) => value !== action.payload)
+    deselectAreaCode(state, action) {
+      state.AreaCode = state.AreaCode.filter((value) => value !== action.payload)
     },
+
+
     selectCategory(state, action) {
       state.categories.push(action.payload)
     },
@@ -28,12 +30,15 @@ const filterSlice = createSlice({
       state.categories = state.categories.filter((value) => value !== action.payload)
     },
 
-    selectMoney(state, action) {
-      state.amount.push(action.payload)
+
+    selectArea(state, action) {
+      state.area.push(action.payload)
     },
-    deselectMoney(state, action) {
-      state.amount = state.amount.filter((value) => value !== action.payload)
+    deselectArea(state, action) {
+      state.area = state.area.filter((value) => value !== action.payload)
     },
+
+
     selectColor(state, action) {
       state.color.push(action.payload)
     },

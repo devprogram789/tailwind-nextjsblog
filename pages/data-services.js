@@ -1,17 +1,41 @@
+import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
-import projectsData from '@/data/projectsData'
-import Card from '@/components/Card'
+import { useSelector } from 'react-redux'
 import { PageSEO } from '@/components/SEO'
 import Image from 'next/image'
-import facebook_icon from '@/data/img/icon/facebook-icon.png'
-import Line_icon from '@/data/img/icon/Line-icon.png'
-import youtube_icon from '@/data/img/icon/youtube-icon.png'
-import SocialIcon from '@/components/social-icons'
 import Link from 'next/link'
 import CardBarChart from '@/components/CardBarChart'
 import CardLineChart from '@/components/CardLineChart'
+import getAllStaticPaths from 'utils/getAllStaticPaths'
 
-export default function DataServices() {
+export default function DataServices(props) {
+  const [query, setQuery] = useState('')
+  const [filterTags, setFilterTags] = useState([])
+  const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
+  const filteredArea = useSelector((state) => state.filter.area)
+  const filteredAreaCode = useSelector((state) => state.filter.AreaCode)
+
+  const filteredDATA =
+    query === ''
+      ? props.buudata
+      : props.buudata.filter((Area) => {
+          console.log(Area.item.AreaCode)
+          return Area.item.AreaCode.toLowerCase().includes(filterTags.toLowerCase())
+        })
+
+  console.log(filterTags)
+  // const filteredDATA = props.buudata.filter((node) =>
+  //   filterTags.length > 0 ? filterTags.every((filterTag) => node.AreaCode.map((tag) => tag.slug).includes(filterTag)) : props.buudata
+  // )
+
+  const filterHandler = (event) => {
+    if (event.target.checked) {
+      setFilterTags([...filterTags, event.target.value])
+    } else {
+      setFilterTags(filterTags.filter((filterTag) => filterTag !== event.target.value))
+    }
+  }
+
   return (
     <>
       <PageSEO title={`Contact - ${siteMetadata.author}`} description={siteMetadata.description} />
@@ -34,6 +58,90 @@ export default function DataServices() {
           </div>
         </div>
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">
+        <div className="col-span-3 grid grid-cols-1 md:grid-cols-4">
+          <div>
+            {/* {Object.keys(props.buudata).map((databuu, inkey) => ( */}
+            {props.Area.map((databuu, inkey) => {
+              // console.log(databuu)
+              return (
+                <div key={inkey}>
+                  <label htmlFor={databuu}>
+                    <input type="checkbox" onChange={filterHandler} value={databuu} id={databuu} />
+                    <span>{databuu}</span>
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+          <div>
+            {/* {Object.keys(props.buudata).map((databuu, inkey) => ( */}
+            {props.ItemCode.map((databuuItemCode, inkeyItemCode) => {
+              // console.log(databuu)
+              return (
+                <div key={inkeyItemCode}>
+                  <label htmlFor={databuuItemCode}>
+                    <input
+                      type="checkbox"
+                      onChange={filterHandler}
+                      value={databuuItemCode}
+                      id={databuuItemCode}
+                    />
+                    <span>{databuuItemCode}</span>
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+
+          <div>
+            {/* {Object.keys(props.buudata).map((databuu, inkey) => ( */}
+            {props.Item.map((dataItembuu, inkeyItem) => {
+              // console.log(databuu)
+              return (
+                <div key={inkeyItem}>
+                  <label htmlFor={dataItembuu}>
+                    <input
+                      type="checkbox"
+                      onChange={filterHandler}
+                      value={dataItembuu}
+                      id={dataItembuu}
+                    />
+                    <span>{dataItembuu}</span>
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+
+          <div>
+            {/* {Object.keys(props.buudata).map((databuu, inkey) => ( */}
+            {props.AreaCode.map((databuuAreaCode, inARkey) => {
+              // console.log(databuu)
+              return (
+                <div key={inARkey}>
+                  <label htmlFor={databuuAreaCode}>
+                    <input
+                      type="checkbox"
+                      onChange={filterHandler}
+                      value={databuuAreaCode}
+                      id={databuuAreaCode}
+                    />
+                    <span>{databuuAreaCode}</span>
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div>
+          <ul>
+            {filterTags.map((nodeX, kxn) => (
+              <li key={kxn}>{nodeX}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
         <div>
           <CardBarChart />
@@ -44,4 +152,84 @@ export default function DataServices() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const items = getAllStaticPaths()
+  const { carbrand, carmodel, min, max } = context.query
+
+  const Area = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.Area)) {
+      previous.push(current.item.Area)
+    }
+    return previous
+  }, [])
+
+  const AreaCode = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.AreaCode)) {
+      previous.push(current.item.AreaCode)
+    }
+    return previous
+  }, [])
+
+  const ItemCode = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.ItemCode)) {
+      previous.push(current.item.ItemCode)
+    }
+    return previous
+  }, [])
+
+  const Item = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.Item)) {
+      previous.push(current.item.Item)
+    }
+
+    return previous
+  }, [])
+
+  const ElementCode = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.ElementCode)) {
+      previous.push(current.item.ElementCode)
+    }
+
+    return previous
+  }, [])
+
+  const XElement = items.reduce((previous, current) => {
+    if (!previous.includes(current.item.Element)) {
+      previous.push(current.item.Element)
+    }
+
+    return previous
+  }, [])
+
+  // const odometerReading = items.reduce((previous, current) => {
+  //   if (!previous.includes(current.odometerReading)) {
+  //     previous.push(current.odometerReading)
+  //   }
+
+  //   return previous
+  // }, [])
+
+  // const year = items.reduce((previous, current) => {
+  //   if (!previous.includes(current.year)) {
+  //     previous.push(current.year)
+  //   }
+
+  //   return previous
+  // }, [])
+
+  //console.log(result)
+
+  return {
+    props: {
+      buudata: items,
+      Area,
+      AreaCode,
+      ItemCode,
+      Item,
+      ElementCode,
+      XElement,
+    },
+  }
 }

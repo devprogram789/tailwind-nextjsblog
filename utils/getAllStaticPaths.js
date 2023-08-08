@@ -1,8 +1,8 @@
-import data from '../pages/api/data.json';
+import data from '../data/csvjson.json';
 
 const getAllStaticPaths = () => {
-  return data.clothes.map((item) => ({
-    params: { cid: item.id },
+  return data.map((item) => ({
+   item
   }));
 };
 

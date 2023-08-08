@@ -1,0 +1,75 @@
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { CheckIcon } from '../utils/icons'
+import { filterActions } from '../store/filterSlice'
+
+const CheckBox = ({ of, type }) => {
+  const filters = useSelector((state) => state.filter)
+  const [isChecked, setIsChecked] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (type === 'brand') {
+      if (filters.brands.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'model') {
+      if (filters.model.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'category') {
+      if (filters.categories.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'transmissionType') {
+      if (filters.transmissionType.includes(of)) {
+        setIsChecked(true)
+      }
+    } else if (type === 'odometerReading') {
+      if (filters.odometerReading.includes(of)) {
+        setIsChecked(true)
+      }
+    }
+  }, [])
+
+  const clickHandler = () => {
+    if (isChecked) {
+      if (type === 'brand') {
+        dispatch(filterActions.deselectBrand(of))
+      } else if (type === 'model') {
+        dispatch(filterActions.deselectModel(of))
+      } else if (type === 'category') {
+        dispatch(filterActions.deselectCategory(of))
+      } else if (type === 'transmissionType') {
+        dispatch(filterActions.deselectTransmissionType(of))
+      } else if (type === 'odometerReading') {
+        dispatch(filterActions.deselectOdometerReading(of))
+      }
+    } else {
+      if (type === 'brand') {
+        dispatch(filterActions.selectBrand(of))
+      } else if (type === 'model') {
+        dispatch(filterActions.selectModel(of))
+      } else if (type === 'category') {
+        dispatch(filterActions.selectCategory(of))
+      } else if (type === 'transmissionType') {
+        dispatch(filterActions.selectTransmissionType(of))
+      } else if (type === 'odometerReading') {
+        dispatch(filterActions.selectOdometerReading(of))
+      }
+    }
+
+    setIsChecked((prevValue) => !prevValue)
+  }
+
+  return isChecked ? (
+    <Button className="checked" onClick={clickHandler}>
+      <CheckIcon />
+    </Button>
+  ) : (
+    <Button onClick={clickHandler}></Button>
+  )
+}
+
+export default CheckBox
