@@ -9,7 +9,7 @@ import CardLineChart from '@/components/CardLineChart'
 import getAllStaticPaths from 'utils/getAllStaticPaths'
 import getAllData from 'utils/getAllData'
 import Chart from 'chart.js'
-import { Listbox, Transition } from '@headlessui/react'
+import { Listbox, Transition, Combobox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 // import Select from "react-select";
 
@@ -26,7 +26,7 @@ const groupBy = function (xs, key) {
 
 export default function DataServices(props) {
   // const filters = useSelector((state) => state.filter)
-  // const [query, setQuery] = useState('')
+  const [query, setQuery] = useState('')
   // const [filterTags, setFilterTags] = useState([])
   // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
   // const filteredType = useSelector((state) => state.filter.type)
@@ -39,6 +39,13 @@ export default function DataServices(props) {
   const [selectedFrom_Year, setSelectedFrom_Year] = useState('เริ่มจากปี')
   const [selectedTo_Year, setSelectedTo_Year] = useState('เลือกถึงปี')
   const [selectedDistrict, setSelectedDistrict] = useState('เลือกจังหวัด')
+
+  // const [selectedPerson, setSelectedPerson] = useState(null)
+
+  // const filteredPeople =
+  //   query === '' ? props.buudata : props.buudata.filter((person) => {
+  //     return person.Product.toLowerCase().includes(query.toLowerCase())
+  //   })
 
   //const [selectedOptions, setSelectedOptions] = useState()
 
@@ -105,7 +112,19 @@ export default function DataServices(props) {
     return category
   })
 
-  //console.log(groupProduct)
+  // const ssdata = GGXAProduct.map((itdm) => {
+  //   console.log(itdm.Product)
+  //   return  {
+  //     label: "มัน",
+  //     data: [50, 70,],
+  //     borderColor: "rgba(20, 38, 154, 0.5)",
+  //     borderWidth: "1",
+  //     backgroundColor: "rgba(20, 38, 154)",
+  //     stack: 'พืชไร่',
+  //   }
+  // })
+
+  //console.log(GGXAProduct)
 
   // const maocs = filteredData.map((itemx) => {
   //   return {
@@ -508,9 +527,7 @@ export default function DataServices(props) {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
-        <dov>
-          <CardBarChart dtax={GGXAProduct} LXla={groupVcate} />
-        </dov>
+        <dov>{/* <CardBarChart dtax={ggx} LXla={groupVcate} /> */}</dov>
         <div>
           <CardLineChart />
         </div>
