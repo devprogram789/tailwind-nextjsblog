@@ -1,43 +1,14 @@
-import React from 'react'
+import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import Chart from 'chart.js'
 
-export default function CardBarChart() {
-  React.useEffect(() => {
+export default function CardBarChart({ dtax, dxlAx }) {
+  // console.log(dxlAx)
+  useEffect(() => {
     let config = {
       type: 'bar',
       data: {
-        labels: [
-          'มกราคม',
-          'กุมภาพันธ์',
-          'มีนาคม',
-          'เมษายน',
-          'พฤษภาคม',
-          'มิถุนายน',
-          'กรกฎาคม',
-          'สิงหาคม',
-          'กันยายน',
-          'ตุลาคม',
-          'พฤศจิกายน',
-          'ธันวาคม',
-        ],
-        datasets: [
-          {
-            label: new Date().getFullYear(),
-            backgroundColor: '#4a5568',
-            borderColor: '#4a5568',
-            data: [30, 78, 56, 34, 100, 45, 13],
-            fill: false,
-            barThickness: 8,
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: '#3182ce',
-            borderColor: '#3182ce',
-            data: [27, 68, 86, 74, 10, 4, 87],
-            barThickness: 8,
-          },
-        ],
+        labels: dxlAx,
+        datasets: dtax,
       },
       options: {
         maintainAspectRatio: false,
@@ -110,9 +81,9 @@ export default function CardBarChart() {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
               <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                Performance
+                การเกษตร ภาคตะวันออก
               </h6>
-              <h2 className="text-blueGray-700 text-xl font-semibold">Total orders</h2>
+              <h2 className="text-blueGray-700 text-xl font-semibold">{'TITLE'}</h2>
             </div>
           </div>
         </div>
