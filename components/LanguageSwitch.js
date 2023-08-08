@@ -2,17 +2,20 @@ import Flag_of_Thailand from '@/data/img/Flag_of_Thailand.png'
 import Flag_United_States from '@/data/img/Flag_of_the_United_States.png'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
-// import SearchIcon from '@/data/img/search-icon.png'
+import { Switch } from '@headlessui/react'
 import Image from 'next/image'
 
 export default function LanguageSwitch() {
   const [searchValue, setSearchValue] = useState('')
+  const [enaXbled, setXEnabled] = useState('th')
+
   // const filteredBlogPosts = posts.filter((frontMatter) => {
   //   const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
   //   return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   // })
   // const displayPosts =
   //   initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
+
   return (
     <div className="w-26 text-right flex">
       <div className="hidden sm:inline-block relative max-w-lg input-container ">
@@ -39,10 +42,15 @@ export default function LanguageSwitch() {
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
+
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex gap-4 w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <Image className="w-8 h-auto" src={Flag_of_Thailand} alt="Flag_of_Thailand" />
+            {enaXbled == 'th' ? (
+              <Image className="w-8 h-auto" src={Flag_of_Thailand} alt="Flag_of_Thailand" />
+            ) : (
+              <Image className="w-8 h-auto" src={Flag_United_States} alt="Flag_United_States" />
+            )}
           </Menu.Button>
         </div>
         <Transition
@@ -62,17 +70,18 @@ export default function LanguageSwitch() {
                     className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={(e) => setXEnabled('th')}
                   >
                     {active ? (
                       <Image
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 w-8 h-auto"
                         aria-hidden="true"
                         src={Flag_of_Thailand}
                         alt="Flag_of_Thailand"
                       />
                     ) : (
                       <Image
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 w-8 h-auto"
                         aria-hidden="true"
                         src={Flag_of_Thailand}
                         alt="Flag_United_States"
@@ -88,17 +97,18 @@ export default function LanguageSwitch() {
                     className={`${
                       active ? 'bg-violet-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={(e) => setXEnabled('en')}
                   >
                     {active ? (
                       <Image
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 w-8 h-auto"
                         aria-hidden="true"
                         src={Flag_United_States}
                         alt="Flag_United_States"
                       />
                     ) : (
                       <Image
-                        className="mr-2 h-5 w-5"
+                        className="mr-2 w-8 h-auto"
                         aria-hidden="true"
                         src={Flag_United_States}
                         alt="Flag_of_Thailand"
