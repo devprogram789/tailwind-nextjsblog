@@ -1,6 +1,6 @@
 const siteMetadata = {
   title: 'มหาวิทยาลัยบูรพา',
-  author: 'buu',
+  author: 'มหาวิทยาลัยบูรพา',
   headerTitle: 'มหาวิทยาลัยบูรพา อันดับที่ 1',
   description: 'มหาวิทยาลัยบูรพา อันดับที่ 1 ได้รับรางวัล “มหาวิทยาลัยสุขภาพ ระดับ 4 ดาว',
   language: 'th-th',
@@ -9,7 +9,7 @@ const siteMetadata = {
   siteRepo: '#',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
-  socialBanner: '/static/images/twitter-card.png',
+  socialBanner: '/static/images/Home_Hero.jpg',
   email: 'arees@go.buu.ac.th',
   github: '#',
   twitter: 'https://twitter.com/buu',
