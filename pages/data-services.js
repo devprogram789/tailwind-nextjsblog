@@ -8,6 +8,8 @@ import Line_icon from '@/data/img/icon/Line-icon.png'
 import youtube_icon from '@/data/img/icon/youtube-icon.png'
 import SocialIcon from '@/components/social-icons'
 import Link from 'next/link'
+import CardBarChart from '@/components/CardBarChart'
+import CardLineChart from '@/components/CardLineChart'
 
 export default function DataServices() {
   return (
@@ -30,6 +32,14 @@ export default function DataServices() {
               ศูนย์ข้อมูลเทคโนโลยีสารสนเทศและการสื่อสาร
             </p>
           </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
+        <div>
+          <CardBarChart />
+        </div>
+        <div>
+          <CardLineChart />
         </div>
       </div>
     </>
