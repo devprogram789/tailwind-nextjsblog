@@ -123,8 +123,8 @@ export default function DataServices(props) {
   //     stack: 'พืชไร่',
   //   }
   // })
-
-  //console.log(GGXAProduct)
+  console.log(GGProduct)
+  console.log(GGXAProduct)
 
   // const maocs = filteredData.map((itemx) => {
   //   return {
