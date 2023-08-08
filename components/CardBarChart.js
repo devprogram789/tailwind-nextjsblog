@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import Chart from 'chart.js'
 
-export default function CardBarChart({ dtax, dxlAx }) {
-  // console.log(dxlAx)
+export default function CardBarChart({ dtax, LXla }) {
+  console.log(dtax, LXla)
   useEffect(() => {
     let config = {
       type: 'bar',
       data: {
-        labels: dxlAx,
-        datasets: dtax,
+        labels: LXla,
+        datasets: dtax.map(() => dtax.Value),
       },
       options: {
         maintainAspectRatio: false,

@@ -8,7 +8,7 @@ import CardBarChart from '@/components/CardBarChart'
 import CardLineChart from '@/components/CardLineChart'
 import getAllStaticPaths from 'utils/getAllStaticPaths'
 import getAllData from 'utils/getAllData'
-
+import Chart from 'chart.js'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 // import Select from "react-select";
@@ -25,72 +25,87 @@ const groupBy = function (xs, key) {
 }
 
 export default function DataServices(props) {
-  const filters = useSelector((state) => state.filter)
-  const [query, setQuery] = useState('')
-  const [filterTags, setFilterTags] = useState([])
-  const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
-  const filteredType = useSelector((state) => state.filter.type)
-  const filteredProduct = useSelector((state) => state.filter.product)
-  const filteredDistrict = useSelector((state) => state.filter.district)
-  const [selectedRegion, setSelectedRegion] = useState('กรุณาเลือก')
+  // const filters = useSelector((state) => state.filter)
+  // const [query, setQuery] = useState('')
+  // const [filterTags, setFilterTags] = useState([])
+  // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
+  // const filteredType = useSelector((state) => state.filter.type)
+  // const filteredProduct = useSelector((state) => state.filter.product)
+  // const filteredDistrict = useSelector((state) => state.filter.district)
+  // const [selectedRegion, setSelectedRegion] = useState('กรุณาเลือก')
 
   const [selectedProduct, setSelectedProduct] = useState('กรุณาเลือกผลิตภัณฑ์')
   const [selectedTypeX, setSelectedTypeX] = useState('กรุณาเลือกประเภท')
   const [selectedFrom_Year, setSelectedFrom_Year] = useState('เริ่มจากปี')
-  const [selectedTo_Year, setSelectedTo_Year] = useState('ถึงปี')
+  const [selectedTo_Year, setSelectedTo_Year] = useState('เลือกถึงปี')
   const [selectedDistrict, setSelectedDistrict] = useState('เลือกจังหวัด')
 
-  const [selectedOptions, setSelectedOptions] = useState()
+  //const [selectedOptions, setSelectedOptions] = useState()
 
   //const filteredTypeX = selectedTypeX === '' ? props.buudata.filter((DATAC) => { return DATAC.TypeX === selectedTypeX }):props.buudata
   //const filteredProduct = selectedProduct === '' ? props.buudata.filter((DATAC) => { return DATAC.Product === selectedProduct }):props.buudata
-  const filteredFrom_Year =
-    selectedFrom_Year === ''
-      ? props.buudata.filter((DATAC) => {
-          return DATAC.From_Year === selectedFrom_Year
-        })
-      : props.buudata
-  const filteredTo_Year =
-    selectedTo_Year === ''
-      ? props.buudata.filter((DATAC) => {
-          return DATAC.To_Year === selectedTo_Year
-        })
-      : props.buudata
+  // const filteredFrom_Year =
+  //   selectedFrom_Year === ''
+  //     ? props.buudata.filter((DATAC) => {
+  //         return DATAC.From_Year === selectedFrom_Year
+  //       })
+  //     : props.buudata
+  // const filteredTo_Year =
+  //   selectedTo_Year === ''
+  //     ? props.buudata.filter((DATAC) => {
+  //         return DATAC.To_Year === selectedTo_Year
+  //       })
+  //     : props.buudata
   // const filteredDistrict = selectedDistrict === '' ? props.buudata.filter((DATAC) => { return DATAC.District === selectedDistrict }):props.buudata
 
-  let filteredData
-  filteredData =
-    selectedTypeX.length > 0
-      ? [...props.buudata].filter((value) => selectedTypeX.includes(value.TypeX))
-      : [...props.buudata]
+  // let filteredData
+  // filteredData =
+  //   selectedTypeX.length > 0
+  //     ? [...props.buudata].filter((value) => selectedTypeX.includes(value.TypeX))
+  //     : [...props.buudata]
 
   //filteredData = selectedTypeX.length > 0 ? props.buudata.filter((value) => selectedTypeX.includes(value.TypeX)):props.buudata
-  filteredData =
-    selectedProduct.length > 0
-      ? [...props.buudata].filter((value) => selectedProduct.includes(value.Product))
-      : [...props.buudata]
+  // filteredData =
+  //   selectedProduct.length > 0
+  //     ? [...props.buudata].filter((value) => selectedProduct.includes(value.Product))
+  //     : [...props.buudata]
   //const filteredDistrict = selectedDistrict.length > 0 ? [...props.buudata].filter((value) => selectedDistrict.includes(value.District)):[...props.buudata]
-  filteredData =
-    selectedDistrict.length > 0
-      ? [...props.buudata].filter((value) => selectedDistrict.includes(value.District))
-      : [...props.buudata]
+  // filteredData =
+  //   selectedDistrict.length > 0
+  //     ? [...props.buudata].filter((value) => selectedDistrict.includes(value.District))
+  //     : [...props.buudata]
   // filteredData = selectedFrom_Year.length > 0 && selectedTo_Year.length > 0 ? props.buudata.filter((value) => selectedFrom_Year ):props.buudata
 
   const GGProduct = props.buudata.filter((value) => {
     return (
       value.Type.includes(selectedTypeX) &&
       value.Product.includes(selectedProduct) &&
-      value.District.includes(selectedDistrict)
+      value.District.includes(selectedDistrict) &&
+      value.Year >= selectedFrom_Year &&
+      value.Year <= selectedTo_Year
     )
   })
 
-  // const GGProduct = groupBy(filteredData, 'Product')
-  console.log(GGProduct)
+  // const cfg = {
+  //   type: 'bar',
+  //   data: {
+  //     datasets: [{
+  //       data: GGProduct
+  //     }]
+  //   }
+  // }
+  // console.log(cfg)
+  const GGXAProduct = groupBy(GGProduct, 'Product')
+  const groupProduct = Object.keys(GGXAProduct).map((Product) => {
+    return Product
+  })
 
-  // const ggx = groupBy(filteredData, 'Year')
-  // const groupVcate = Object.keys(ggx).map((category) => {
-  //   return category
-  // })
+  const ggx = groupBy(GGProduct, 'Year')
+  const groupVcate = Object.keys(ggx).map((category) => {
+    return category
+  })
+
+  //console.log(groupProduct)
 
   // const maocs = filteredData.map((itemx) => {
   //   return {
@@ -283,11 +298,13 @@ export default function DataServices(props) {
             </Listbox>
             {/* พบ {selectedProduct.length} รายการ */}
           </div>
-          {/* <div>
+          <div>
             <Listbox value={selectedFrom_Year} onChange={setSelectedFrom_Year}>
               {({ open }) => (
                 <>
-                  <Listbox.Label className="block text-sm font-medium text-gray-700">From Year</Listbox.Label>
+                  <Listbox.Label className="block text-sm font-medium text-gray-700">
+                    From Year
+                  </Listbox.Label>
                   <div className="relative mt-1">
                     <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                       <span className="block truncate">{selectedFrom_Year}</span>
@@ -302,7 +319,6 @@ export default function DataServices(props) {
                       leave="transition ease-in duration-100"
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
-                      
                     >
                       <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {props.Year.map((persoXn, indx) => (
@@ -315,11 +331,15 @@ export default function DataServices(props) {
                               )
                             }
                             value={persoXn}
-                            
                           >
                             {({ selectedFrom_Year, active }) => (
                               <>
-                                <span className={classNames(selectedFrom_Year ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                <span
+                                  className={classNames(
+                                    selectedFrom_Year ? 'font-semibold' : 'font-normal',
+                                    'block truncate'
+                                  )}
+                                >
                                   {persoXn}
                                 </span>
 
@@ -343,13 +363,15 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            พบ {selectedFrom_Year.length} รายการ
+            {/* พบ {selectedFrom_Year.length} รายการ */}
           </div>
           <div>
             <Listbox value={selectedTo_Year} onChange={setSelectedTo_Year}>
               {({ open }) => (
                 <>
-                  <Listbox.Label className="block text-sm font-medium text-gray-700">To Year</Listbox.Label>
+                  <Listbox.Label className="block text-sm font-medium text-gray-700">
+                    To Year
+                  </Listbox.Label>
                   <div className="relative mt-1">
                     <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
                       <span className="block truncate">{selectedTo_Year}</span>
@@ -364,7 +386,6 @@ export default function DataServices(props) {
                       leave="transition ease-in duration-100"
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
-                      
                     >
                       <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {props.Year.map((persoXn, indx) => (
@@ -377,11 +398,15 @@ export default function DataServices(props) {
                               )
                             }
                             value={persoXn}
-                            
                           >
                             {({ selectedTo_Year, active }) => (
                               <>
-                                <span className={classNames(selectedTo_Year ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                <span
+                                  className={classNames(
+                                    selectedTo_Year ? 'font-semibold' : 'font-normal',
+                                    'block truncate'
+                                  )}
+                                >
                                   {persoXn}
                                 </span>
 
@@ -405,8 +430,8 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            พบ {selectedTo_Year.length} รายการ
-          </div> */}
+            {/* พบ {selectedTo_Year.length} รายการ */}
+          </div>
           <div>
             <Listbox value={selectedDistrict} onChange={setSelectedDistrict}>
               {({ open }) => (
@@ -483,7 +508,9 @@ export default function DataServices(props) {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
-        <div>{/* <CardBarChart dtax={maocs} dxlAx={groupVcate} /> */}</div>
+        <dov>
+          <CardBarChart dtax={GGXAProduct} LXla={groupVcate} />
+        </dov>
         <div>
           <CardLineChart />
         </div>
@@ -529,7 +556,7 @@ export async function getServerSideProps(context) {
     if (!previous.includes(current.Year)) {
       previous.push(current.Year)
     }
-
+    previous.sort()
     return previous
   }, [])
 
