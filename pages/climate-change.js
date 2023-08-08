@@ -83,7 +83,7 @@ export function ListClimateChangeLayout({ posts, title, initialDisplayPosts = []
                         <div className="text-start">
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/forestry/${slug}`}
+                              href={`/climate-change/${slug}`}
                               className="text-[#0F8787] dark:text-gray-100"
                             >
                               {title}
@@ -132,7 +132,10 @@ export function ListClimateChangeLayout({ posts, title, initialDisplayPosts = []
 export default function Forestry({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
-      <PageSEO title={`Forestry - ${siteMetadata.author}`} description={siteMetadata.description} />
+      <PageSEO
+        title={`Climate Change - ${siteMetadata.author}`}
+        description={siteMetadata.description}
+      />
       <Image
         className="w-full h-auto object-contain rounded-2xl"
         src={'/static/images/06_Climate_Change/Banner-Climate-Change.jpg'}

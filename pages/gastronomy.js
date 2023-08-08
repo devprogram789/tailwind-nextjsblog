@@ -11,7 +11,7 @@ import { DataRacx } from '@/data/dataset'
 export const POSTS_PER_PAGE = 9
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('aquaculture-and-fishery')
+  const posts = await getAllFilesFrontMatter('gastronomy')
   const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
   const pagination = {
     currentPage: 1,
@@ -21,12 +21,7 @@ export async function getStaticProps() {
   return { props: { initialDisplayPosts, posts, pagination } }
 }
 
-export function ListAquacultureAndFisheryLayout({
-  posts,
-  title,
-  initialDisplayPosts = [],
-  pagination,
-}) {
+export function ListGastronomyLayout({ posts, title, initialDisplayPosts = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((frontMatter) => {
     const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
@@ -88,7 +83,7 @@ export function ListAquacultureAndFisheryLayout({
                         <div className="text-start">
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/aquaculture-and-fishery/${slug}`}
+                              href={`/gastronomy/${slug}`}
                               className="text-[#0F8787] dark:text-gray-100"
                             >
                               {title}
@@ -134,26 +129,26 @@ export function ListAquacultureAndFisheryLayout({
   )
 }
 
-export default function Agriculture({ posts, initialDisplayPosts, pagination }) {
+export default function Forestry({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
       <PageSEO
-        title={`Aquaculture And Fishery - ${siteMetadata.author}`}
+        title={`Gastronomy - ${siteMetadata.author}`}
         description={siteMetadata.description}
       />
       <Image
         className="w-full h-auto object-contain rounded-2xl"
-        src={'/static/images/02_Aquaculture_and_fishery/Banner-Aquaculture-and-Fishery.jpg'}
-        alt="banner"
+        src={'/static/images/Gastronomy_F/banner_gastronomy.jpg'}
+        alt="Banner-Gastronomy"
         width="1920"
         height="1080"
       />
       <div className="px-0 md:px-8 bg-[url('/static/images/bg-blog.png')] bg-cover">
-        <ListAquacultureAndFisheryLayout
+        <ListGastronomyLayout
           posts={posts}
           initialDisplayPosts={initialDisplayPosts}
           pagination={pagination}
-          title="Aquaculture and fishery Posts"
+          title="Gastronomy Posts"
         />
         <div>
           <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
