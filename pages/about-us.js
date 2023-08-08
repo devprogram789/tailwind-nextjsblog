@@ -12,8 +12,6 @@ export async function getStaticProps() {
 }
 
 export default function About({ authorDetails }) {
-  const { mdxSource, frontMatter } = authorDetails
-
   return (
     <>
       <PageSEO title={`About Us - ${siteMetadata.author}`} description={siteMetadata.description} />
@@ -94,6 +92,53 @@ export default function About({ authorDetails }) {
                 <p className="text-md">{dax.job}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+      <div className="py-4">
+        <h3 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
+          การทำงานร่วมกัน
+        </h3>
+        <div className="mx-auto text-center grid grid-cols-2 md:flex md:flex-row flex-warp items-end gap-4 justify-center md:gap-10 py-4">
+          <div className="w-full flex flex-col w-32 h-auto">
+            <Image
+              className="w-full h-auto object-contain rounded-lg"
+              src={'/static/images/About_Us/Cooperation/logo-1.png'}
+              alt="สำนักงานเศรษฐกิจการเกษตรที่ 6"
+              width="500"
+              height="500"
+            />
+            <p>สำนักงานเศรษฐกิจการเกษตรที่ 6</p>
+          </div>
+          <div className="w-full flex flex-col w-32 h-auto">
+            <Image
+              className="w-full h-auto object-contain rounded-lg"
+              src={'/static/images/About_Us/Cooperation/logo-2.jpg'}
+              alt="สำนักงานสถิติจังหวัดจันทบุรี"
+              width="500"
+              height="500"
+            />
+            <p className="w-full ">สำนักงานสถิติจังหวัดจันทบุรี</p>
+          </div>
+          <div className="w-full flex flex-col w-32 h-auto">
+            <Image
+              className="w-full h-auto object-contain rounded-lg"
+              src={'/static/images/About_Us/Cooperation/logo-3.png'}
+              alt="สำนักงานพัฒนาวิทยาศาสตร์"
+              width="500"
+              height="500"
+            />
+            <p>สำนักงานพัฒนาวิทยาศาสตร์</p>
+          </div>
+          <div className="w-full flex flex-col w-32 h-auto">
+            <Image
+              className="w-full h-auto object-contain rounded-lg"
+              src={'/static/images/About_Us/Cooperation/logo-21.png'}
+              alt="สำนักงานพัฒนาวิทยาศาสตร์"
+              width="500"
+              height="500"
+            />
+            <p>สำนักงานพัฒนาวิทยาศาสตร์</p>
           </div>
         </div>
       </div>

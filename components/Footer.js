@@ -3,6 +3,8 @@ import Image from 'next/image'
 import facebook_icon from '@/data/img/icon/facebook-icon.png'
 import Line_icon from '@/data/img/icon/Line-icon.png'
 import youtube_icon from '@/data/img/icon/youtube-icon.png'
+import SocialIcon from '@/components/social-icons'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -31,9 +33,14 @@ export default function Footer() {
           </div>
           <div className="mt-10 md:mt-0">
             <h3 className="text-lg font-semibold text-[#004FB3]">โทรศัพท์</h3>
-            <p className="text-sm leading-6 text-[#004FB3]">039-310000</p>
+            <p className="text-sm leading-6 text-[#004FB3]">039-310-000</p>
             <h3 className="text-lg font-semibold text-[#004FB3]">อีเมล์</h3>
-            <p className="text-sm leading-6 text-[#004FB3]">arees@go.buu.ac.th</p>
+            <div className="flex gap-2 items-center text-[#004FB3]">
+              <SocialIcon kind="mail" href={`mailto:arees@go.buu.ac.th`} />
+              arees@go.buu.ac.th
+            </div>
+
+            {/* <p className="text-sm leading-6 text-[#004FB3]">arees@go.buu.ac.th</p> */}
           </div>
         </div>
 
@@ -42,25 +49,42 @@ export default function Footer() {
             <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">ช่องทางการติดต่อ</h3>
             <div className="w-full flex items-center gap-4">
               <div>
-                <Image
-                  className="w-full h-auto object-contain px-2"
-                  src={facebook_icon}
-                  alt="logofooter"
-                />
+                <Link
+                  href={'https://www.facebook.com/buu.ac.th/'}
+                  className="text-sm text-gray-500 transition hover:text-gray-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    className="w-20 h-20 object-contain px-2"
+                    src={facebook_icon}
+                    alt="facebook buu"
+                  />
+                </Link>
               </div>
               <div>
-                <Image
-                  className="w-full h-auto object-contain px-2"
-                  src={Line_icon}
-                  alt="logofooter"
-                />
+                <Link
+                  href={'https://www.line.me/'}
+                  className="text-sm text-gray-500 transition hover:text-gray-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image className="w-20 h-20 object-contain px-2" src={Line_icon} alt="line buu" />
+                </Link>
               </div>
               <div>
-                <Image
-                  className="w-full h-auto object-contain px-2"
-                  src={youtube_icon}
-                  alt="logofooter"
-                />
+                <Link
+                  href={'https://www.youtube.com/channel/UCSZh_FkbzEw3hKNXk7EyNqQ'}
+                  className="text-sm text-gray-500 transition hover:text-gray-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    className="w-20 h-20 object-contain px-2"
+                    src={youtube_icon}
+                    alt="youtube buu"
+                  />
+                </Link>
               </div>
             </div>
           </div>

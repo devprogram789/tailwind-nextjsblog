@@ -39,3 +39,61 @@ input:-webkit-autofill:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.input-container {
+  position: relative;
+  /* display: flex; */
+  align-items: center;
+}
+
+.input-search {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  padding: 18px 16px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.input-search::placeholder {
+  color: transparent;
+}
+
+.input-search:focus::placeholder {
+  color: rgb(131, 128, 128);
+}
+
+.input-search:focus,.input-search:not(:placeholder-shown) {
+  background-color: #fff;
+  /* border: 1px solid rgb(100, 100, 100); */
+  width: 290px;
+  cursor: none;
+  padding: 18px 16px 18px 40px;
+}
+
+.icon-search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40px;
+  width: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: -1;
+  /* fill: rgb(92, 92, 92); */
+  /* border: 1px solid rgb(68, 68, 68); */
+}
+
+.input-search:hover + .icon-search {
+  transform: rotate(360deg);
+  transition: .2s ease-in-out;
+}
+
+.input-search:focus + .icon,.input-search:not(:placeholder-shown) + .icon-search {
+  z-index: 0;
+  background-color: transparent;
+  border: none;
+}
