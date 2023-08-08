@@ -2,11 +2,11 @@
   "name": "changyed-nook",
   "version": "1.0.0",
   "private": true,
-
   "scripts": {
     "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts"
@@ -26,6 +26,7 @@
     "image-size": "1.0.2",
     "mdx-bundler": "^9.2.1",
     "next": "13.4.13",
+    "next-sitemap": "^4.1.8",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.5",
     "preact": "^10.6.2",
