@@ -82,7 +82,7 @@ const MobileNav = () => {
               name="text"
               aria-label="Search articles"
               onChange={(e) => setSearchValue(e.target.value)}
-              className="input"
+              className="inputMB"
               placeholder="ค้นหาข้อมูล..."
             />
           </div>
