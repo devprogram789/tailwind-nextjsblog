@@ -4,7 +4,7 @@ import headerNavLinks from '@/data/headerNavLinks'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
-
+  const [searchValue, setSearchValue] = useState('')
   const onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
@@ -76,6 +76,16 @@ const MobileNav = () => {
               </Link>
             </div>
           ))}
+          <div className="px-12 py-4 sm:hidden relative max-w-lg">
+            <input
+              type="text"
+              name="text"
+              aria-label="Search articles"
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="input"
+              placeholder="ค้นหาข้อมูล..."
+            />
+          </div>
         </nav>
       </div>
     </div>
