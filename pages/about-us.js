@@ -100,7 +100,7 @@ export default function About({ authorDetails }) {
           การทำงานร่วมกัน
         </h3>
         <div className="mx-auto text-center grid grid-cols-2 md:flex md:flex-row flex-warp items-end gap-4 justify-center md:gap-10 py-4">
-          <div className="w-full flex flex-col w-32 h-auto">
+          <div className="flex flex-col w-32 h-auto">
             <Image
               className="w-full h-auto object-contain rounded-lg"
               src={'/static/images/About_Us/Cooperation/logo-1.png'}
@@ -110,7 +110,7 @@ export default function About({ authorDetails }) {
             />
             <p>สำนักงานเศรษฐกิจการเกษตรที่ 6</p>
           </div>
-          <div className="w-full flex flex-col w-32 h-auto">
+          <div className="flex flex-col w-32 h-auto">
             <Image
               className="w-full h-auto object-contain rounded-lg"
               src={'/static/images/About_Us/Cooperation/logo-2.jpg'}
@@ -118,9 +118,9 @@ export default function About({ authorDetails }) {
               width="500"
               height="500"
             />
-            <p className="w-full ">สำนักงานสถิติจังหวัดจันทบุรี</p>
+            <p>สำนักงานสถิติจังหวัดจันทบุรี</p>
           </div>
-          <div className="w-full flex flex-col w-32 h-auto">
+          <div className="flex flex-col w-32 h-auto">
             <Image
               className="w-full h-auto object-contain rounded-lg"
               src={'/static/images/About_Us/Cooperation/logo-3.png'}
@@ -130,7 +130,7 @@ export default function About({ authorDetails }) {
             />
             <p>สำนักงานพัฒนาวิทยาศาสตร์</p>
           </div>
-          <div className="w-full flex flex-col w-32 h-auto">
+          <div className="flex flex-col w-32 h-auto">
             <Image
               className="w-full h-auto object-contain rounded-lg"
               src={'/static/images/About_Us/Cooperation/logo-21.png'}
