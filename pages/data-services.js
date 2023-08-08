@@ -11,7 +11,9 @@ import getAllData from 'utils/getAllData'
 // import Chart from 'chart.js'
 import { Listbox, Transition, Combobox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-// import Select from "react-select";
+
+import { Picky } from 'react-picky'
+import 'react-picky/dist/picky.css'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -26,8 +28,9 @@ const groupBy = function (xs, key) {
 
 export default function DataServices(props) {
   // const filters = useSelector((state) => state.filter)
-  const [query, setQuery] = useState('')
-  // const [filterTags, setFilterTags] = useState([])
+  // const [query, setQuery] = useState('')
+  // const [proxk, setproxk] = useState('')
+  const [multiValue, setMultiValue] = useState([])
   // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
   // const filteredType = useSelector((state) => state.filter.type)
   // const filteredProduct = useSelector((state) => state.filter.product)
@@ -40,48 +43,7 @@ export default function DataServices(props) {
   const [selectedTo_Year, setSelectedTo_Year] = useState('เลือกถึงปี')
   const [selectedDistrict, setSelectedDistrict] = useState('เลือกจังหวัด')
 
-  // const [selectedPerson, setSelectedPerson] = useState(null)
-
-  // const filteredPeople =
-  //   query === '' ? props.buudata : props.buudata.filter((person) => {
-  //     return person.Product.toLowerCase().includes(query.toLowerCase())
-  //   })
-
-  //const [selectedOptions, setSelectedOptions] = useState()
-
-  //const filteredTypeX = selectedTypeX === '' ? props.buudata.filter((DATAC) => { return DATAC.TypeX === selectedTypeX }):props.buudata
-  //const filteredProduct = selectedProduct === '' ? props.buudata.filter((DATAC) => { return DATAC.Product === selectedProduct }):props.buudata
-  // const filteredFrom_Year =
-  //   selectedFrom_Year === ''
-  //     ? props.buudata.filter((DATAC) => {
-  //         return DATAC.From_Year === selectedFrom_Year
-  //       })
-  //     : props.buudata
-  // const filteredTo_Year =
-  //   selectedTo_Year === ''
-  //     ? props.buudata.filter((DATAC) => {
-  //         return DATAC.To_Year === selectedTo_Year
-  //       })
-  //     : props.buudata
-  // const filteredDistrict = selectedDistrict === '' ? props.buudata.filter((DATAC) => { return DATAC.District === selectedDistrict }):props.buudata
-
-  // let filteredData
-  // filteredData =
-  //   selectedTypeX.length > 0
-  //     ? [...props.buudata].filter((value) => selectedTypeX.includes(value.TypeX))
-  //     : [...props.buudata]
-
-  //filteredData = selectedTypeX.length > 0 ? props.buudata.filter((value) => selectedTypeX.includes(value.TypeX)):props.buudata
-  // filteredData =
-  //   selectedProduct.length > 0
-  //     ? [...props.buudata].filter((value) => selectedProduct.includes(value.Product))
-  //     : [...props.buudata]
-  //const filteredDistrict = selectedDistrict.length > 0 ? [...props.buudata].filter((value) => selectedDistrict.includes(value.District)):[...props.buudata]
-  // filteredData =
-  //   selectedDistrict.length > 0
-  //     ? [...props.buudata].filter((value) => selectedDistrict.includes(value.District))
-  //     : [...props.buudata]
-  // filteredData = selectedFrom_Year.length > 0 && selectedTo_Year.length > 0 ? props.buudata.filter((value) => selectedFrom_Year ):props.buudata
+  const [selectedOptions, setSelectedOptions] = useState([])
 
   const GGProduct = props.buudata.filter((value) => {
     return (
@@ -93,15 +55,10 @@ export default function DataServices(props) {
     )
   })
 
-  // const cfg = {
-  //   type: 'bar',
-  //   data: {
-  //     datasets: [{
-  //       data: GGProduct
-  //     }]
-  //   }
-  // }
-  // console.log(cfg)
+  const lxProd = props.Product.map((ProductX) => {
+    return { value: ProductX, label: ProductX }
+  })
+
   const GGXAProduct = groupBy(GGProduct, 'Product')
   const groupProduct = Object.keys(GGXAProduct).map((Product) => {
     return Product
@@ -123,6 +80,7 @@ export default function DataServices(props) {
   //     stack: 'พืชไร่',
   //   }
   // })
+
   console.log(GGProduct)
   console.log(GGXAProduct)
 
@@ -519,10 +477,29 @@ export default function DataServices(props) {
             {/* พบ {filteredDistrict.length} รายการ */}
           </div>
 
-          <div className="w-full flex items-center ">
-            {/* {filteredData.length > 0 ? (
-              <p className='flex'>พบทั้งหมด {filteredData.length} รายการ</p>
-            ):null} */}
+          <div className="w-full">
+            <h3>Multi Product</h3>
+            <Picky
+              options={lxProd}
+              className="relative w-full cursor-default rounded-md border border-gray-300 bg-white text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+              labelKey="label"
+              valueKey="value"
+              multiple={true}
+              includeFilter
+              includeSelectAll
+              value={multiValue}
+              onChange={setMultiValue}
+              renderList={({ items, selected, multiple, selectValue, getIsSelected }) =>
+                items.map((item, ixos) => {
+                  const label = `${item.label} ID Even? ${item.value % 2 === 0 ? 'yes' : 'no'}`
+                  return (
+                    <li key={ixos} onClick={() => selectValue(item)}>
+                      {getIsSelected(item) ? <strong>{label}</strong> : label}
+                    </li>
+                  )
+                })
+              }
+            />
           </div>
         </div>
       </div>
