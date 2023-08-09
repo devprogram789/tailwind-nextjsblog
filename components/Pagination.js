@@ -17,9 +17,14 @@ export default function Pagination({ totalPages, currentPage }) {
             <button rel="previous">Previous</button>
           </Link>
         )}
-        <span>
-          {currentPage} of {totalPages}
-        </span>
+        <div>
+          <ul className="flex gap-2">
+            <li className="bg-red-200 py-2 px-4 rounded-md drop-shadow-md">{totalPages}</li>
+          </ul>
+          {/* <div>
+         <p>{currentPage} of {totalPages}</p>
+        </div> */}
+        </div>
         {!nextPage && (
           <button rel="next" className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
             Next

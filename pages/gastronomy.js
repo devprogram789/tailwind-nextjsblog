@@ -129,7 +129,7 @@ export function ListGastronomyLayout({ posts, title, initialDisplayPosts = [], p
   )
 }
 
-export default function Forestry({ posts, initialDisplayPosts, pagination }) {
+export default function Gastronomy({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
       <PageSEO

@@ -82,7 +82,7 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
                         <div className="text-start">
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/agriculture/${slug}`}
+                              href={`/service/${slug}`}
                               className="text-[#0F8787] dark:text-gray-100"
                             >
                               {title}

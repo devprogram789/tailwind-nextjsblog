@@ -129,7 +129,7 @@ export function ListClimateChangeLayout({ posts, title, initialDisplayPosts = []
   )
 }
 
-export default function Forestry({ posts, initialDisplayPosts, pagination }) {
+export default function Climate({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
       <PageSEO

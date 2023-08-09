@@ -1,0 +1,132 @@
+import { Fragment, useEffect, useId, useRef, useState } from 'react'
+import Image from '@/components/Image'
+import { PageSEO } from '@/components/SEO'
+import PageTitle from '@/components/PageTitle'
+import siteMetadata from '@/data/siteMetadata'
+import Link from 'next/link'
+
+// import TableDaTaService from '@/components/TableDaTaService'
+
+export default function DataServiceLayout({ frontMatter }) {
+  const { title, slug, occupation, company, email, twitter, linkedin } = frontMatter
+
+  // const GGProduct = props?.buudata.filter((value) => {
+  //   return (
+  //     value.Type.includes(selectedTypeX) &&
+  //     value.District.includes(selectedDistrict) &&
+  //     value.Year >= selectedFrom_Year &&
+  //     value.Year <= selectedTo_Year
+  //   )
+  // })
+
+  // const ProductJ = GGProduct.reduce((previous, current) => {
+  //   if (!previous.includes(current.Product)) {
+  //     previous.push(current.Product)
+  //   }
+  //   return previous
+  // }, [])
+
+  // const lxProd = ProductJ.map((ProductX) => {
+  //   return { value: ProductX, label: ProductX }
+  // })
+
+  // const mapfixPro = multiValue.map((iui) => iui.value)
+  // const mastfiltered = GGProduct.filter(function (item) {
+  //   return mapfixPro.includes(item.Product) ? true : false
+  // })
+
+  // // console.log(mastfiltered)
+
+  // const GGXAProduct = groupBy(mastfiltered, 'Product')
+  // const groupProduct = Object.keys(GGXAProduct).map((Product) => {
+  //   return Product
+  // })
+
+  // const ggx = groupBy(mastfiltered, 'Year')
+  // const groupVcate = Object.keys(ggx).map((Year) => {
+  //   return Year
+  // })
+
+  // const setxdata = groupProduct.map((itex) => {
+  //   let darxF = mastfiltered.filter((data) => {
+  //     return data.Product == itex
+  //   })
+  //   return {
+  //     label: darxF[0].Product,
+  //     data: darxF.map((vdx) => vdx.Value),
+  //     borderColor: '#F1F5F9',
+  //     backgroundColor: '#7B75FF',
+  //   }
+  // })
+
+  return (
+    <>
+      <PageSEO
+        title={`DataService - ${siteMetadata.title}`}
+        description={`About me - ${siteMetadata.description}`}
+      />
+      <Image
+        className="w-full h-auto object-contain rounded-2xl"
+        src={'/static/images/01_Agriculture/Banner-Agriculture.jpg'}
+        alt="banner"
+        width="1920"
+        height="1080"
+      />
+      <div className="w-full">
+        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+          <div className="py-8">
+            <PageTitle>{frontMatter.title}</PageTitle>
+          </div>
+          <div className="flex" aria-label="Breadcrumb">
+            <ol role="list" className="flex items-center space-x-4">
+              <li>
+                <div>
+                  <Link href="/" className="text-gray-400 hover:text-gray-500">
+                    Home /<span className="sr-only">Home</span>
+                  </Link>
+                </div>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <Link
+                    href={frontMatter.slug}
+                    className="text-sm font-medium text-gray-500 hover:text-gray-700"
+                    aria-current={frontMatter.slug ? 'page' : undefined}
+                  >
+                    {frontMatter.title}
+                  </Link>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div className="py-4 flex gap-4">
+        <button
+          type="button"
+          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-[#004FB3] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Download Data
+        </button>
+        <button
+          type="button"
+          className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-[#004FB3] hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Visualize Data
+        </button>
+      </div>
+      <div className="bg-[url('/static/images/Contact_Us/bg_contact_3.png')] bg-cover py-8 rounded-2xl">
+        <div className="mx-auto max-w-4xl bg-gradient-to-b from-gray-100 rounded-2xl">
+          <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+            <h1 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-3xl sm:leading-10 md:text-5xl md:leading-14">
+              DATA CENTER
+            </h1>
+            <p className="text-lg text-center leading-7 text-[#004DB3] dark:text-gray-400">
+              ศูนย์ข้อมูลเทคโนโลยีสารสนเทศและการสื่อสาร
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}

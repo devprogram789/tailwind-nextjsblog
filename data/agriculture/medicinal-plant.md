@@ -4,7 +4,7 @@ date: '2023-08-07'
 tags: ['medicinal', 'CHANGYED', 'plant']
 draft: false
 summary: 'หมายถึง กลุ่มของพืชที่นิยมป่มาใช้สำหรับรักษาโรค ปรุงร่างกาย และนำมาประกอบของอาหาร'
-layout: 'PostSimple'
+layout: 'DataServiceLayout'
 images: '/static/images/01_Agriculture/พืชสมุนไพร.jpg'
 ---
 

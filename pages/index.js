@@ -81,7 +81,10 @@ export default function Home({ posts }) {
             {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
               const { slug, date, title, summary, tags, images } = frontMatter
               return (
-                <article key={slug} className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4">
+                <article
+                  key={slug}
+                  className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4"
+                >
                   <div className="space-y-2 ">
                     <div>
                       <Image
@@ -110,9 +113,9 @@ export default function Home({ posts }) {
                             ))}
                           </div> */}
                         </div>
-                        <div className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400">
+                        <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
                           {summary}
-                        </div>
+                        </p>
                       </div>
                       {/* <div className="text-base font-medium leading-6">
                         <Link

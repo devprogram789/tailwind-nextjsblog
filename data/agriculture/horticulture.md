@@ -4,7 +4,7 @@ date: '2023-08-07'
 tags: ['Horticulture', 'CHANGYED', 'CHANGYEDde']
 draft: false
 summary: 'หมายถึง พืชที่ต้อง งตูแลอย่างพิดีผิตัน มีขอบเขตในการปลูกที่แม่นอน ทั้งยังมีขั้นตอนและความประณีต...'
-layout: 'PostSimple'
+layout: 'DataServiceLayout'
 images: '/static/images/01_Agriculture/พืชสวน.jpg'
 ---
 

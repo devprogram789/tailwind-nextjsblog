@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { Bar, Line } from 'react-chartjs-2'
 import { Listbox, Transition, Combobox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { getDataFromSrvXXX } from 'utils/getDataFromSrvXXX'
+import { getDataFromSrv } from 'utils/getDataFromSrvXXX'
 import { Picky } from 'react-picky'
 import 'react-picky/dist/picky.css'
 
@@ -37,8 +37,8 @@ const groupBy = function (xs, key) {
   }, {})
 }
 
-export default function DataServices(props) {
-  // const filters = useSelector((state) => state.filter)
+export default function DataSer({ propD }) {
+  console.log(propD)
   const [multiValue, setMultiValue] = useState([])
   // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
   // const filteredType = useSelector((state) => state.filter.type)
@@ -136,7 +136,6 @@ export default function DataServices(props) {
 
   return (
     <>
-      <PageSEO title={`Contact - ${siteMetadata.author}`} description={siteMetadata.description} />
       <Image
         className="w-full h-auto object-contain rounded-2xl"
         src={'/static/images/DataServic/data-center.webp'}
@@ -482,90 +481,4 @@ export default function DataServices(props) {
       </div>
     </>
   )
-}
-
-export async function getServerSideProps(context) {
-  const items = await getDataFromSrvXXX()
-  const { carbrand, carmodel, min, max } = context.query
-
-  // const Region = items.reduce((previous, current) => {
-  //   if (!previous.includes(current.Region)) {
-  //     previous.push(current.Region)
-  //   }
-  //   return previous
-  // }, [])
-
-  const TypeX = items.reduce((previous, current) => {
-    if (!previous.includes(current.Type)) {
-      previous.push(current.Type)
-    }
-    return previous
-  }, [])
-
-  const Product = items.reduce((previous, current) => {
-    if (!previous.includes(current.Product)) {
-      previous.push(current.Product)
-    }
-    return previous
-  }, [])
-
-  const District = items.reduce((previous, current) => {
-    if (!previous.includes(current.District)) {
-      previous.push(current.District)
-    }
-
-    return previous
-  }, [])
-
-  const Year = items.reduce((previous, current) => {
-    if (!previous.includes(current.Year)) {
-      previous.push(current.Year)
-    }
-    previous.sort()
-    return previous
-  }, [])
-
-  // const Source = items.reduce((previous, current) => {
-  //   if (!previous.includes(current.Source)) {
-  //     previous.push(current.Source)
-  //   }
-
-  //   return previous
-  // }, [])
-
-  // const categorie_id = items.reduce((previous, current) => {
-  //   if (!previous.includes(current.categorie_id)) {
-  //     previous.push(current.categorie_id)
-  //   }
-
-  //   return previous
-  // }, [])
-
-  // const odometerReading = items.reduce((previous, current) => {
-  //   if (!previous.includes(current.odometerReading)) {
-  //     previous.push(current.odometerReading)
-  //   }
-
-  //   return previous
-  // }, [])
-
-  // const year = items.reduce((previous, current) => {
-  //   if (!previous.includes(current.year)) {
-  //     previous.push(current.year)
-  //   }
-
-  //   return previous
-  // }, [])
-
-  //console.log(result)
-
-  return {
-    props: {
-      buudata: items,
-      TypeX,
-      Product,
-      Year,
-      District,
-    },
-  }
 }

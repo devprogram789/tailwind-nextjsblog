@@ -28,7 +28,7 @@ const siteMetadata = {
     provider: '',
   },
   comment: {
-    provider: 'giscus',
+    provider: '',
     giscusConfig: {
       repo: process.env.NEXT_PUBLIC_GISCUS_REPO,
       repositoryId: process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID,

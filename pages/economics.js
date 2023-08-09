@@ -122,14 +122,14 @@ export function ListEconomicsLayout({ posts, title, initialDisplayPosts = [], pa
           </li>
         </ul>
       </div>
-      {pagination && pagination.totalPages > 1 && !searchValue && (
-        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
-      )}
+      {/* {pagination && pagination.totalPages > 1 && !searchValue && ( */}
+      <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+      {/* )} */}
     </>
   )
 }
 
-export default function Forestry({ posts, initialDisplayPosts, pagination }) {
+export default function Economics({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
       <PageSEO
