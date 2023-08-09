@@ -32,7 +32,7 @@ export default function Home({ posts }) {
           />
         </div>
         <div className="py-2 hidden sm:block">
-          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover  rounded-2xl">
+          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover rounded-2xl">
             <div className="w-full h-auto mt-48 grid grid-cols-4 content-end px-28 gap-10">
               <div className="col-span-2 w-full h-auto ">
                 <Image
@@ -43,7 +43,7 @@ export default function Home({ posts }) {
                   height="300"
                 />
               </div>
-              <div className="rounded-2xl px-4 py-4 bg-white/50 h-[330px] col-span-2 text-gray-100 overflow-y-auto">
+              <div className="rounded-2xl px-4 py-4 bg-white/80 h-[330px] col-span-2 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   ก้าวสำคัญของโลกอนาคตด้วยการขับเคลื่อนด้วยข้อมูล
                   เป็นสิ่งสำคัญที่จะต้องมีการเตรียมความพร้อมของการจัดเก็บข้อมูลที่ถูกต้อง
@@ -76,16 +76,16 @@ export default function Home({ posts }) {
           </p> */}
         </div>
         <ul className="px-0 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
-          <li className="py-12 grid grid-cols-1 md:grid-cols-3 gap-10 items-baseline">
+          <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
             {!posts.length && 'No posts found.'}
             {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
               const { slug, date, title, summary, tags, images } = frontMatter
               return (
-                <article key={slug} className="bg-white drop-shadow-lg rounded-2xl px-4 py-4">
+                <article key={slug} className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4">
                   <div className="space-y-2 ">
                     <div>
                       <Image
-                        className="w-full h-auto object-contain rounded-2xl"
+                        className="w-full h-auto object-contain rounded-md md:rounded-2xl"
                         src={images}
                         alt={title}
                         width="500"
@@ -93,7 +93,7 @@ export default function Home({ posts }) {
                       />
                       <div className="py-4">
                         <div className="text-center">
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight line-clamp-1">
+                          <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
                             <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
                               {title}
                             </Link>
@@ -110,7 +110,7 @@ export default function Home({ posts }) {
                             ))}
                           </div> */}
                         </div>
-                        <div className="text-center prose max-w-none text-gray-500 dark:text-gray-400">
+                        <div className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400">
                           {summary}
                         </div>
                       </div>
