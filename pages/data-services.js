@@ -1,19 +1,30 @@
 import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { PageSEO } from '@/components/SEO'
 import Image from 'next/image'
-import Link from 'next/link'
+// import Link from 'next/link'
 // import CardBarChart from '@/components/CardBarChart'
-import CardLineChart from '@/components/CardLineChart'
-import getAllStaticPaths from 'utils/getAllStaticPaths'
-import getAllData from 'utils/getAllData'
-// import Chart from 'chart.js'
+// import { CardLineChart } from '@/components/CardLineChart'
+import { Bar, Line } from 'react-chartjs-2'
 import { Listbox, Transition, Combobox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-
+import { getDataFromSrv } from 'utils/getDataFromSrv'
 import { Picky } from 'react-picky'
 import 'react-picky/dist/picky.css'
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -28,89 +39,100 @@ const groupBy = function (xs, key) {
 
 export default function DataServices(props) {
   // const filters = useSelector((state) => state.filter)
-  // const [query, setQuery] = useState('')
-  // const [proxk, setproxk] = useState('')
   const [multiValue, setMultiValue] = useState([])
   // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
   // const filteredType = useSelector((state) => state.filter.type)
   // const filteredProduct = useSelector((state) => state.filter.product)
   // const filteredDistrict = useSelector((state) => state.filter.district)
   // const [selectedRegion, setSelectedRegion] = useState('กรุณาเลือก')
-
-  const [selectedProduct, setSelectedProduct] = useState('กรุณาเลือกผลิตภัณฑ์')
+  // const [selectedProduct, setSelectedProduct] = useState('กรุณาเลือกผลิตภัณฑ์')
   const [selectedTypeX, setSelectedTypeX] = useState('กรุณาเลือกประเภท')
   const [selectedFrom_Year, setSelectedFrom_Year] = useState('เริ่มจากปี')
   const [selectedTo_Year, setSelectedTo_Year] = useState('เลือกถึงปี')
   const [selectedDistrict, setSelectedDistrict] = useState('เลือกจังหวัด')
-
-  const [selectedOptions, setSelectedOptions] = useState([])
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [],
+  })
+  const [chartOptions, setChartOptions] = useState({})
 
   const GGProduct = props.buudata.filter((value) => {
     return (
       value.Type.includes(selectedTypeX) &&
-      value.Product.includes(selectedProduct) &&
       value.District.includes(selectedDistrict) &&
       value.Year >= selectedFrom_Year &&
       value.Year <= selectedTo_Year
     )
   })
 
-  const lxProd = props.Product.map((ProductX) => {
+  const ProductJ = GGProduct.reduce((previous, current) => {
+    if (!previous.includes(current.Product)) {
+      previous.push(current.Product)
+    }
+    return previous
+  }, [])
+
+  const lxProd = ProductJ.map((ProductX) => {
     return { value: ProductX, label: ProductX }
   })
 
-  const GGXAProduct = groupBy(GGProduct, 'Product')
+  const mapfixPro = multiValue.map((iui) => iui.value)
+  const mastfiltered = GGProduct.filter(function (item) {
+    return mapfixPro.includes(item.Product) ? true : false
+  })
+
+  // console.log(mastfiltered)
+
+  const GGXAProduct = groupBy(mastfiltered, 'Product')
   const groupProduct = Object.keys(GGXAProduct).map((Product) => {
     return Product
   })
 
-  const ggx = groupBy(GGProduct, 'Year')
-  const groupVcate = Object.keys(ggx).map((category) => {
-    return category
+  const ggx = groupBy(mastfiltered, 'Year')
+  const groupVcate = Object.keys(ggx).map((Year) => {
+    return Year
   })
 
-  // const ssdata = GGXAProduct.map((itdm) => {
-  //   console.log(itdm.Product)
-  //   return  {
-  //     label: "มัน",
-  //     data: [50, 70,],
-  //     borderColor: "rgba(20, 38, 154, 0.5)",
-  //     borderWidth: "1",
-  //     backgroundColor: "rgba(20, 38, 154)",
-  //     stack: 'พืชไร่',
-  //   }
-  // })
+  const setxdata = groupProduct.map((itex) => {
+    let darxF = mastfiltered.filter((data) => {
+      return data.Product == itex
+    })
+    return {
+      label: darxF[0].Product,
+      data: darxF.map((vdx) => vdx.Value),
+      borderColor: '#F1F5F9',
+      backgroundColor: '#7B75FF',
+    }
+  })
 
-  console.log(GGProduct)
-  console.log(GGXAProduct)
+  useEffect(() => {
+    if (!selectedTypeX && !groupVcate && !setxdata) {
+      return
+    }
+    const getCCCC = async () => {
+      setChartData({
+        labels: groupVcate,
+        datasets: setxdata,
+      })
+      setChartOptions({
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: `L=ปี V=ผลิตภัณฑ์ G=ผลิตภัณฑ์ ข้อมูลพื้นที่`,
+          },
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+      })
+    }
 
-  // const maocs = filteredData.map((itemx) => {
-  //   return {
-  //     label: itemx.Year,
-  //     backgroundColor: '#4a5568',
-  //     borderColor: '#4a5568',
-  //     data: [itemx.Value],
-  //     fill: false,
-  //     barThickness: 8,
-  //   }
-  // })
+    getCCCC()
 
-  //console.log(groupVcate);
-  //console.log(groupByCategory)
-  // console.log(filteredDistrict)
-
-  // const filterHandler = (event) => {
-  //   if (event.target.checked) {
-  //     setFilterTags([...filterTags, event.target.value])
-  //   } else {
-  //     setFilterTags(filterTags.filter((filterTag) => filterTag !== event.target.value))
-  //   }
-  // }
-  //console.log()
-
-  // const getItemById = (itemId) => {
-  //   return props.buudata.find((item) => item.id === itemId);
-  // };
+    return () => {}
+  }, [])
 
   return (
     <>
@@ -134,12 +156,15 @@ export default function DataServices(props) {
           </div>
         </div>
       </div>
-      <div className="py-8">
-        <div>
-          {selectedTypeX && selectedTypeX} {selectedProduct && selectedProduct}{' '}
-          {selectedDistrict && selectedDistrict} พบ {GGProduct.length} รายการ
+      <div className="py-4 md:py-8">
+        <div className="text-center">
+          <p>
+            ประเภท {selectedTypeX && selectedTypeX} จากปี {selectedFrom_Year && selectedFrom_Year}{' '}
+            ถึง {selectedTo_Year && selectedTo_Year} <br />
+            พื้นที่ {selectedDistrict && selectedDistrict}
+          </p>
         </div>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap gap-4">
           <div>
             <Listbox value={selectedTypeX} onChange={setSelectedTypeX}>
               {({ open }) => (
@@ -205,76 +230,8 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            {/* พบ {selectedTypeX.length} รายการ */}
           </div>
 
-          <div>
-            <Listbox value={selectedProduct} onChange={setSelectedProduct}>
-              {({ open }) => (
-                <>
-                  <Listbox.Label className="block text-sm font-medium text-gray-700">
-                    Product
-                  </Listbox.Label>
-                  <div className="relative mt-1">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
-                      <span className="block truncate">{selectedProduct}</span>
-                      <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                      </span>
-                    </Listbox.Button>
-
-                    <Transition
-                      show={open}
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {props.Product.map((persoXn, indx) => (
-                          <Listbox.Option
-                            key={indx}
-                            className={({ active }) =>
-                              classNames(
-                                active ? 'text-white bg-indigo-600' : 'text-gray-900',
-                                'relative cursor-default select-none py-2 pl-8 pr-4'
-                              )
-                            }
-                            value={persoXn}
-                          >
-                            {({ selectedProduct, active }) => (
-                              <>
-                                <span
-                                  className={classNames(
-                                    selectedProduct ? 'font-semibold' : 'font-normal',
-                                    'block truncate'
-                                  )}
-                                >
-                                  {persoXn}
-                                </span>
-
-                                {selectedProduct ? (
-                                  <span
-                                    className={classNames(
-                                      active ? 'text-white' : 'text-indigo-600',
-                                      'absolute inset-y-0 left-0 flex items-center pl-1.5'
-                                    )}
-                                  >
-                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                  </span>
-                                ) : null}
-                              </>
-                            )}
-                          </Listbox.Option>
-                        ))}
-                      </Listbox.Options>
-                    </Transition>
-                  </div>
-                </>
-              )}
-            </Listbox>
-            {/* พบ {selectedProduct.length} รายการ */}
-          </div>
           <div>
             <Listbox value={selectedFrom_Year} onChange={setSelectedFrom_Year}>
               {({ open }) => (
@@ -340,7 +297,6 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            {/* พบ {selectedFrom_Year.length} รายการ */}
           </div>
           <div>
             <Listbox value={selectedTo_Year} onChange={setSelectedTo_Year}>
@@ -407,7 +363,6 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            {/* พบ {selectedTo_Year.length} รายการ */}
           </div>
           <div>
             <Listbox value={selectedDistrict} onChange={setSelectedDistrict}>
@@ -474,14 +429,13 @@ export default function DataServices(props) {
                 </>
               )}
             </Listbox>
-            {/* พบ {filteredDistrict.length} รายการ */}
           </div>
 
-          <div className="w-full">
+          <div className="col-span-2 w-full md:w-60">
             <h3>Multi Product</h3>
             <Picky
               options={lxProd}
-              className="relative w-full cursor-default rounded-md border border-gray-300 bg-white text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+              className="relative cursor-default rounded-md border border-gray-300 bg-white text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
               labelKey="label"
               valueKey="value"
               multiple={true}
@@ -491,7 +445,7 @@ export default function DataServices(props) {
               onChange={setMultiValue}
               renderList={({ items, selected, multiple, selectValue, getIsSelected }) =>
                 items.map((item, ixos) => {
-                  const label = `${item.label} ID Even? ${item.value % 2 === 0 ? 'yes' : 'no'}`
+                  const label = `${item.label}` //เลือก? ${item.value % 2 === 0 ? 'ใช่' : 'ไม่'}
                   return (
                     <li key={ixos} onClick={() => selectValue(item)}>
                       {getIsSelected(item) ? <strong>{label}</strong> : label}
@@ -501,12 +455,29 @@ export default function DataServices(props) {
               }
             />
           </div>
+          <div>
+            <p className="py-4 text-center text-xl font-semibold">
+              {mastfiltered && `พบ ${mastfiltered.length} รายการ`}{' '}
+            </p>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
-        <dov>{/* <CardBarChart dtax={ggx} LXla={groupVcate} /> */}</dov>
         <div>
-          <CardLineChart />
+          <div className="bh-white m-auto h-[50vh] w-full rounded-lg border p-4 md:col-span-2 lg:h-[70vh] py-8">
+            <div className="text-center">
+              <p>{`กราฟแท่ง ${selectedTypeX} จาก ${selectedFrom_Year} ถึง ${selectedTo_Year} พื้นที่ ${selectedDistrict}`}</p>
+            </div>
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        </div>
+        <div>
+          <div className="bh-white m-auto h-[50vh] w-full rounded-lg border p-4 md:col-span-2 lg:h-[70vh] py-8">
+            <div className="text-center">
+              <p>{`กราฟเส้น ${selectedTypeX} จาก ${selectedFrom_Year} ถึง ${selectedTo_Year} พื้นที่ ${selectedDistrict}`}</p>
+            </div>
+            <Line data={chartData} options={chartOptions} />
+          </div>
         </div>
       </div>
     </>
@@ -514,15 +485,15 @@ export default function DataServices(props) {
 }
 
 export async function getServerSideProps(context) {
-  const items = await getAllData()
+  const items = await getDataFromSrv()
   const { carbrand, carmodel, min, max } = context.query
 
-  const Region = items.reduce((previous, current) => {
-    if (!previous.includes(current.Region)) {
-      previous.push(current.Region)
-    }
-    return previous
-  }, [])
+  // const Region = items.reduce((previous, current) => {
+  //   if (!previous.includes(current.Region)) {
+  //     previous.push(current.Region)
+  //   }
+  //   return previous
+  // }, [])
 
   const TypeX = items.reduce((previous, current) => {
     if (!previous.includes(current.Type)) {
@@ -554,13 +525,13 @@ export async function getServerSideProps(context) {
     return previous
   }, [])
 
-  const Source = items.reduce((previous, current) => {
-    if (!previous.includes(current.Source)) {
-      previous.push(current.Source)
-    }
+  // const Source = items.reduce((previous, current) => {
+  //   if (!previous.includes(current.Source)) {
+  //     previous.push(current.Source)
+  //   }
 
-    return previous
-  }, [])
+  //   return previous
+  // }, [])
 
   // const categorie_id = items.reduce((previous, current) => {
   //   if (!previous.includes(current.categorie_id)) {
@@ -591,13 +562,10 @@ export async function getServerSideProps(context) {
   return {
     props: {
       buudata: items,
-      Region,
       TypeX,
       Product,
       Year,
       District,
-      Source,
-      // categorie_id,
     },
   }
 }

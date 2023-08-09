@@ -1,0 +1,77 @@
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
+    ; (rv[x[key]] = rv[x[key]] || []).push(x)
+    return rv
+  }, {})
+}
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data = {
+  labels,
+  datasets: [
+    // {
+    //   label: 'Dataset 1',
+    //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+    //   borderColor: 'rgb(255, 99, 132)',
+    //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    // },
+    // {
+    //   label: 'Dataset 2',
+    //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+    //   borderColor: 'rgb(53, 162, 235)',
+    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    // },
+  ],
+};
+
+export function CardLineChart({ xdata, TYP, FY, TY, FT })  {
+  const GGXAProduct = groupBy(xdata, 'Product')
+  const groupProduct = Object.keys(GGXAProduct).map((Product) => {
+    return Product
+  })
+
+  const ggx = groupBy(xdata, 'Year')
+  const groupVcate = Object.keys(ggx).map((Year) => {
+    return Year
+  })
+
+  return <Line options={options} data={data} />;
+}
