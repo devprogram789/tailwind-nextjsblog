@@ -66,7 +66,7 @@ module.exports = withBundleAnalyzer({
     scrollRestoration: true,
   },
   images: {
-    domains: [],
+    domains: ["baansuanpui.com"],
   },
   eslint: {
     ignoreDuringBuilds: true,

@@ -8,16 +8,19 @@ import Image from 'next/image'
 import NewsletterForm from '@/components/NewsletterForm'
 import banner_1920x980 from '@/data/img/banner/banner_1920x980.jpg'
 import bg_data_center_2 from '@/data/img/banner/bg_data_center_2.png'
+import axios from 'axios'
 
 const MAX_DISPLAY = 12
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
-
-  return { props: { posts } }
+  const { data: DataCategories } = await axios.get('https://baansuanpui.com/api/categories')
+  // const jdata = DataCategories.json()
+  // console.log(DataCategories)
+  return { props: { posts, DataCategories } }
 }
 
-export default function Home({ posts }) {
+export default function Home({ posts, DataCategories }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
@@ -77,28 +80,43 @@ export default function Home({ posts }) {
         </div>
         <ul className="px-0 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
           <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
-            {!posts.length && 'No posts found.'}
-            {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-              const { slug, date, title, summary, tags, images } = frontMatter
+            {!DataCategories.length && 'No posts found.'}
+            {DataCategories.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
+              //const { slug, date, title, summary, tags, images } = frontMatter
+              const {
+                id,
+                title_th,
+                title_en,
+                cover_path,
+                alt_cover,
+                banner_path,
+                alt_banner,
+                des_th,
+                des_en,
+                enable,
+              } = frontMatter.data
               return (
                 <article
-                  key={slug}
+                  key={indxs}
                   className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4"
                 >
                   <div className="space-y-2 ">
                     <div>
                       <Image
                         className="w-full h-auto object-contain rounded-md md:rounded-2xl"
-                        src={images}
-                        alt={title}
+                        src={'https://baansuanpui.com/' + cover_path}
+                        alt={alt_cover}
                         width="500"
                         height="500"
                       />
                       <div className="py-4">
                         <div className="text-center">
                           <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
-                            <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
-                              {title}
+                            <Link
+                              href={`/${title_en}`}
+                              className="text-[#0F8787] dark:text-gray-100"
+                            >
+                              {title_th}
                             </Link>
                           </h2>
                           {/* <dl>
@@ -114,7 +132,7 @@ export default function Home({ posts }) {
                           </div> */}
                         </div>
                         <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
-                          {summary}
+                          {des_th}
                         </p>
                       </div>
                       {/* <div className="text-base font-medium leading-6">
@@ -134,7 +152,7 @@ export default function Home({ posts }) {
           </li>
         </ul>
       </div>
-      {posts.length > MAX_DISPLAY && (
+      {DataCategories.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/"
@@ -153,3 +171,5 @@ export default function Home({ posts }) {
     </>
   )
 }
+
+//getHomeCategories
