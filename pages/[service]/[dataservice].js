@@ -6,7 +6,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 // import CardBarChart from '@/components/CardBarChart'
 // import { CardLineChart } from '@/components/CardLineChart'
-import { Bar, Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
+
 import { Listbox, Transition, Combobox } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
@@ -25,7 +26,7 @@ import {
   Legend,
 } from 'chart.js'
 // import TableDaTaService from '@/components/TableDaTaService'
-
+import { filterByCheckbox } from 'utils/filterUtils'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 function classNames(...classes) {
@@ -46,9 +47,9 @@ export default function DataServicesIN(props) {
   // const [SelectedAreaCode, setSelectedAreaCode] = useState(null)
   // const filteredType = useSelector((state) => state.filter.type)
   // const filteredProduct = useSelector((state) => state.filter.product)
-  // const filteredDistrict = useSelector((state) => state.filter.district)
-  // const [selectedRegion, setSelectedRegion] = useState('กรุณาเลือก')
-  // const [selectedProduct, setSelectedProduct] = useState('กรุณาเลือกผลิตภัณฑ์')
+  const [listProduct, setListProduct] = useState(props.Product)
+  const [listDistrict, setListDistrict] = useState(props.District)
+  const [listYear, setListYear] = useState(props.Year)
   const [selectedTypeX, setSelectedTypeX] = useState('กรุณาเลือกประเภท')
   const [selectedFrom_Year, setSelectedFrom_Year] = useState('เริ่มจากปี')
   const [selectedTo_Year, setSelectedTo_Year] = useState('เลือกถึงปี')
@@ -58,6 +59,10 @@ export default function DataServicesIN(props) {
     datasets: [],
   })
   const [chartOptions, setChartOptions] = useState({})
+
+  const [allProductchecked, setAllProductChecked] = useState([])
+  const [allYearchecked, setAllYearChecked] = useState([])
+  const [allDistrictchecked, setAllDistrictChecked] = useState([])
 
   const GGProduct = props.buudata.filter((value) => {
     return (
@@ -136,6 +141,30 @@ export default function DataServicesIN(props) {
 
     return () => {}
   }, [])
+
+  function handleProductChange(e) {
+    if (e.target.checked) {
+      setAllProductChecked([...allProductchecked, e.target.value])
+    } else {
+      setAllProductChecked(allProductchecked.filter((item) => item !== e.target.value))
+    }
+  }
+  function handleDistrictChange(e) {
+    if (e.target.checked) {
+      setAllDistrictChecked([...allDistrictchecked, e.target.value])
+    } else {
+      setAllDistrictChecked(allDistrictchecked.filter((item) => item !== e.target.value))
+    }
+  }
+  function handleYearChange(e) {
+    if (e.target.checked) {
+      setAllYearChecked([...allYearchecked, e.target.value])
+    } else {
+      setAllYearChecked(allYearchecked.filter((item) => item !== e.target.value))
+    }
+  }
+
+  console.log(allProductchecked, allDistrictchecked, allYearchecked)
 
   return (
     <>
@@ -541,13 +570,106 @@ export default function DataServicesIN(props) {
                 <div className="text-center">
                   <p>{`กราฟเส้น ${selectedTypeX} จาก ${selectedFrom_Year} ถึง ${selectedTo_Year} พื้นที่ ${selectedDistrict}`}</p>
                 </div>
-                <Line data={chartData} options={chartOptions} />
               </div>
             </div>
           </div>
         </>
       ) : (
-        <div>{/* <div><TableDaTaService databuu={props.buudata}/></div> */}</div>
+        <>
+          <div className="grid grid-cols-3 md:grid-cols-6">
+            <div className="p-4">
+              <fieldset>
+                <h3>Product</h3>
+                <legend className="sr-only">Product</legend>
+                {props.Product.map((Product, ProductIdx) => (
+                  <div key={ProductIdx} className="relative flex items-start py-1">
+                    <div className="flex h-5 items-center">
+                      <input
+                        id={ProductIdx}
+                        aria-describedby="Product-description"
+                        name={Product}
+                        type="checkbox"
+                        value={Product}
+                        onClick={handleProductChange}
+                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <label htmlFor={Product} className="font-medium text-gray-700">
+                        {Product}
+                      </label>
+                      <span id="Product-description" className="text-gray-500">
+                        <span className="sr-only">{Product} </span>.
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </fieldset>
+            </div>
+            <div className="p-4">
+              <fieldset>
+                <h3>Year</h3>
+                <legend className="sr-only">Year</legend>
+                {props.Year.map((Year, YearIdx) => (
+                  <div key={YearIdx} className="relative flex items-start py-1">
+                    <div className="flex h-5 items-center">
+                      <input
+                        id={YearIdx}
+                        aria-describedby="Year-description"
+                        name={Year}
+                        value={Year}
+                        onClick={handleYearChange}
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <label htmlFor={Year} className="font-medium text-gray-700">
+                        {Year}
+                      </label>
+                      <span id="Year-description" className="text-gray-500">
+                        <span className="sr-only">{Year} </span>.
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </fieldset>
+            </div>
+            <div className="p-4">
+              <fieldset>
+                <h3>District</h3>
+                <legend className="sr-only">District</legend>
+                {props.District.map((District, DistrictIdx) => (
+                  <div key={DistrictIdx} className="relative flex items-start py-1">
+                    <div className="flex h-5 items-center">
+                      <input
+                        id={DistrictIdx}
+                        aria-describedby="District-description"
+                        name={District}
+                        value={District}
+                        onClick={handleDistrictChange}
+                        //checked={isCs}
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <label htmlFor={District} className="font-medium text-gray-700">
+                        {District}
+                      </label>
+                      <span id="District-description" className="text-gray-500">
+                        <span className="sr-only">{District} </span>.
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </fieldset>
+            </div>
+          </div>
+          <div>
+            <p>{`ผลิตภัณฑ์ ${allProductchecked} พื้นที่ ${allDistrictchecked} ปี ${allYearchecked}`}</p>
+          </div>
+        </>
       )}
     </>
   )
