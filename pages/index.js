@@ -16,7 +16,7 @@ export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
   const { data: DataCategories } = await axios.get('https://baansuanpui.com/api/categories')
   // const jdata = DataCategories.json()
-  // console.log(DataCategories)
+  //console.log(DataCategories)
   return { props: { posts, DataCategories } }
 }
 
@@ -92,6 +92,7 @@ export default function Home({ posts, DataCategories }) {
                 banner_path,
                 alt_banner,
                 des_th,
+                slug,
                 des_en,
                 enable,
               } = frontMatter.data
@@ -112,10 +113,7 @@ export default function Home({ posts, DataCategories }) {
                       <div className="py-4">
                         <div className="text-center">
                           <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
-                            <Link
-                              href={`/${title_en}`}
-                              className="text-[#0F8787] dark:text-gray-100"
-                            >
+                            <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
                               {title_th}
                             </Link>
                           </h2>
