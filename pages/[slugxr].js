@@ -6,7 +6,7 @@ import { PageSEO } from '@/components/SEO'
 import Image from 'next/image'
 import Pagination from '@/components/Pagination'
 import formatDate from '@/lib/utils/formatDate'
-import { DataRacx } from '@/data/dataset'
+// import { DataRacx } from '@/data/dataset'
 export const POSTS_PER_PAGE = 3
 import axios from 'axios'
 
@@ -33,7 +33,7 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts[0]['sub_data'].filter((frontMatter) => {
     const searchContent = frontMatter.title_th + frontMatter.des_th // + frontMatter.tags.join(' ')
-    console.log(frontMatter)
+    //console.log(frontMatter)
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
   const displayPosts =
@@ -75,9 +75,8 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
         <ul>
           <li className="py-12 grid grid-cols-1 md:grid-cols-3 gap-10 items-baseline">
             {!posts[0]['sub_data'].length && 'No posts found.'}
-            {posts[0] &&
-              posts[0]['sub_data'].map((frontMatter, inxxssa) => {
-                console.log(frontMatter)
+            {posts[0] && posts[0]['sub_data'].map((frontMatter, inxxssa) => {
+                //console.log(frontMatter)
                 const {
                   id,
                   categorie_id,
@@ -101,12 +100,14 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
                           alt={alt}
                           width="500"
                           height="500"
+                          priority
                         />
                         <div className="py-4">
                           <div className="text-start">
                             <h2 className="text-2xl font-bold leading-8 tracking-tight">
                               <Link
                                 href={`/service/${id}`}
+                                as={`/service/${id}`} 
                                 className="text-[#0F8787] dark:text-gray-100"
                               >
                                 {title_th}
@@ -153,7 +154,7 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
 }
 
 export default function Agriculture({ posts, initialDisplayPosts, pagination }) {
-  console.log()
+  //console.log()
   return (
     <>
       <PageSEO
