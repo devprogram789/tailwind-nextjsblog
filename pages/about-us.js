@@ -12,12 +12,12 @@ import 'swiper/css/navigation'
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
-const DEFAULT_LAYOUT = 'AuthorLayout'
+// const DEFAULT_LAYOUT = 'AuthorLayout'
 
-export async function getStaticProps() {
-  const authorDetails = await getFileBySlug('authors', ['default'])
-  return { props: { authorDetails } }
-}
+// export async function getStaticProps() {
+//   const authorDetails = await getFileBySlug('authors', ['default'])
+//   return { props: { authorDetails } }
+// }
 
 const DataSetAbout = [
   {
@@ -38,7 +38,7 @@ const DataSetAbout = [
   },
 ]
 
-export default function About({ authorDetails }) {
+export default function About(props) {
   return (
     <>
       <PageSEO title={`About Us - ${siteMetadata.author}`} description={siteMetadata.description} />
@@ -93,30 +93,27 @@ export default function About({ authorDetails }) {
           <div className="grid grid-cols-4 gap-10 py-4">
             <Image
               className="w-full h-auto object-contain rounded-lg"
-              src={'/static/images/About_Us/vasin3.jpg'}
-              alt="vasin3"
+              src={'https://baansuanpui.com/' + props.itemm[0].data.path}
+              alt={props.itemm[0].data.name_surname_th}
               width="300"
               height="500"
             />
             <div className="col-span-3 flex items-center">
-              <p className="text-md">
-                The idea is to change raw data into information, and then use that information to
-                get insight
-              </p>
+              <p className="text-md">{props.itemm[0].data.detail}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 py-4">
-            {Dataaaaa.map((dax) => (
-              <div key={dax.id} className="text-center">
+            {props.itemm.slice(1).map((dax) => (
+              <div key={dax.data.id} className="text-center">
                 <Image
                   className="w-full h-auto object-contain rounded-lg"
-                  src={dax.images}
-                  alt="vasin3"
+                  src={'https://baansuanpui.com/' + dax.data.path}
+                  alt={dax.data.name_surname_th}
                   width="300"
                   height="500"
                 />
-                <p className="text-lg">{dax.name}</p>
-                <p className="text-md">{dax.job}</p>
+                <p className="text-lg font-semibold">{dax.data.name_surname_th}</p>
+                <p className="text-md">{dax.data.position}</p>
               </div>
             ))}
           </div>
@@ -126,11 +123,11 @@ export default function About({ authorDetails }) {
         <h3 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
           การทำงานร่วมกัน
         </h3>
-        <div className="mx-auto py-4 max-w-6xl">
+        <div className="mx-auto py-4 max-w-3xl">
           <Swiper
             slidesPerView={4}
             spaceBetween={2}
-            centeredSlides={true}
+            //centeredSlides={true}
             autoplay={{
               delay: 5500,
               disableOnInteraction: false,
@@ -143,17 +140,17 @@ export default function About({ authorDetails }) {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {DataSetAbout.map((itexm, ickd) => (
+            {props.itemx.map((itexm, ickd) => (
               <SwiperSlide key={ickd}>
-                <div className="flex flex-col items-end w-32 h-auto">
+                <div className="flex flex-col items-center text-center">
                   <Image
-                    className="w-full h-auto object-contain rounded-lg"
-                    src={itexm.imgx}
-                    alt={itexm.titlex}
+                    className="w-32 h-auto object-contain rounded-lg"
+                    src={'https://baansuanpui.com/' + itexm.path}
+                    alt={itexm.title_th}
                     width="500"
                     height="500"
                   />
-                  <p>{itexm.titlex}</p>
+                  <p className="text-xs w-full ">{itexm.title_th}</p>
                 </div>
               </SwiperSlide>
             ))}
@@ -206,3 +203,15 @@ export default function About({ authorDetails }) {
   )
 }
 //"The idea is to change raw data into information, and then use that information to get insight
+
+export async function getServerSideProps(context) {
+  const authorDetails = await getFileBySlug('authors', ['default'])
+  const res = await fetch(`https://baansuanpui.com/api/workgroup`)
+  const resx = await fetch(`https://baansuanpui.com/api/personnel`)
+  //https://baansuanpui.com/api/personnel
+  const itemsZX = await res.json()
+  const itemsXX = await resx.json()
+  return {
+    props: { itemx: itemsZX, itemm: itemsXX },
+  }
+}

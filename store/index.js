@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import filterReducer from './filterSlice';
-// import authReducer from './authSlice';
+import swLanguage from './swLanguage';
 // import wishlistReducer from './wishlistSlice';
 // import cartReducer from './cartSlice';
 
 const store = configureStore({
   reducer: {
     filter: filterReducer,
-    //auth: authReducer,
+    language: swLanguage,
     //wishlist: wishlistReducer,
     //cart: cartReducer,
   },

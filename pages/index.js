@@ -8,19 +8,24 @@ import Image from 'next/image'
 import NewsletterForm from '@/components/NewsletterForm'
 import banner_1920x980 from '@/data/img/banner/banner_1920x980.jpg'
 import bg_data_center_2 from '@/data/img/banner/bg_data_center_2.png'
-import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const MAX_DISPLAY = 12
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
-  const { data: DataCategories } = await axios.get('https://baansuanpui.com/api/categories')
+  const resxz = await fetch(`https://baansuanpui.com/api/categories`)
+  const DataCategories = await resxz.json()
+  const resxza = await fetch(`https://baansuanpui.com/api/generals`)
+  const DataGenerals = await resxza.json()
   // const jdata = DataCategories.json()
-  //console.log(DataCategories)
-  return { props: { posts, DataCategories } }
+  // console.log(DataGenerals)
+  return { props: { DataCatego: DataCategories, DataGene: DataGenerals } }
 }
 
-export default function Home({ posts, DataCategories }) {
+export default function Home({ DataCatego, DataGene }) {
+  const languageSW = useSelector((state) => state.language)
+  //console.log(languageSW.Language)
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
@@ -28,8 +33,8 @@ export default function Home({ posts, DataCategories }) {
         <div className="py-2">
           <Image
             className="w-full h-auto object-contain rounded-2xl"
-            src={banner_1920x980}
-            alt="banner"
+            src={'https://baansuanpui.com/' + DataGene[0].index_cover_path}
+            alt={DataGene[0].index_title_content}
             width="1920"
             height="1080"
           />
@@ -48,23 +53,9 @@ export default function Home({ posts, DataCategories }) {
               </div>
               <div className="rounded-2xl px-4 py-4 bg-white/80 h-[330px] col-span-2 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
-                  ก้าวสำคัญของโลกอนาคตด้วยการขับเคลื่อนด้วยข้อมูล
-                  เป็นสิ่งสำคัญที่จะต้องมีการเตรียมความพร้อมของการจัดเก็บข้อมูลที่ถูกต้อง
-                  เข้าใจลักษณะพื้นฐานของข้อมูล มีกระบวนการจัดเก็บข้อมูลที่ถูกหลักการ
-                  เพื่อสามารถนำข้อมูลไปใช้ประโยชน์ได้จริง การสร้างระบบจัดเก็บข้อมูลให้มีคุณภาพ
-                  เข้าถึงง่าย จึงมีความจำเป็น ที่ทำให้ข้อมูลมีมาตรฐาน
-                  สามารถยกระดับมูลค่าของข้อมูลในรูปแบบงานวิจัยทางวิทยาศาสตร์ และสังคมศาสตร์
-                  พร้อมด้วยการวิเคราะห์ข้อมูลเพื่อตอบโจทย์ความต้องการของผู้ใช้บริการทั้งเกษตรกร
-                  แรงงาน ภาคเอกชน และหน่วยงานรัฐบาล ดังนั้น ทีมงาน มหาวิทยาลัยบูรพา วิทยาเขตจันทบุรี
-                  และทีมงานคณาจารย์ คณะวิทยาศาสตร์และศิลปศาสตร์
-                  จึงได้เริ่มการจัดเก็บบัญชีข้อมูลโดยเริ่มต้นความร่วมมือจากหน่วยงานภาครัฐในจังหวัดจันทบุรี
-                  เพื่อที่จะสร้างศูนย์ข้อมูลในภาคตะวันออก
-                  ที่คาดหวังว่าสามารถตอบโจทย์ความต้องการของประชาชนในจังหวัดด้วยมูลค่าของข้อมูล
-                  โดยเฉพาะอย่างยิ่งการช่วยเหลือกลุ่มเกษตรกรที่เป็นรากฐานสำคัญของประเทศไทย
-                  นอกจากนี้ทางทีมงานวางแผนที่จะพัฒนาระบบฐานข้อมูล ๆ การใช้เทคโนโลยีด้านข้อมูล
-                  และสร้าง website เพื่อเสนอข้อมูลด้วยภาพ รวมไปถึงระบบการพยากรณ์ต่างๆ
-                  ที่ประชาชนสามารถเข้าถึงข้อมูลพื้นฐานทางการเกษตร และเศรษฐกิจได้
-                  โดยศูนย์ข้อมูลแห่งนี้เกิดจากการเริ่มต้นจากศูนย์ข้อมูลทางการเกษตรในจังหวัดจันทบุรี
+                  {languageSW.Language == 'th'
+                    ? DataGene[0].contact_us_th
+                    : DataGene[0].contact_us_en}
                 </p>
               </div>
             </div>
@@ -80,8 +71,8 @@ export default function Home({ posts, DataCategories }) {
         </div>
         <ul className="px-0 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
           <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
-            {!DataCategories.length && 'No posts found.'}
-            {DataCategories.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
+            {!DataCatego.length && 'No posts found.'}
+            {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
               //const { slug, date, title, summary, tags, images } = frontMatter
               const {
                 id,
@@ -114,7 +105,7 @@ export default function Home({ posts, DataCategories }) {
                         <div className="text-center">
                           <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
                             <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
-                              {title_th}
+                              {languageSW.Language == 'th' ? title_th : title_en}
                             </Link>
                           </h2>
                           {/* <dl>
@@ -150,7 +141,7 @@ export default function Home({ posts, DataCategories }) {
           </li>
         </ul>
       </div>
-      {DataCategories.length > MAX_DISPLAY && (
+      {DataCatego.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/"
@@ -161,11 +152,11 @@ export default function Home({ posts, DataCategories }) {
           </Link>
         </div>
       )}
-      {siteMetadata.newsletter.provider !== '' && (
+      {/* {siteMetadata.newsletter.provider !== '' && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>
-      )}
+      )} */}
     </>
   )
 }

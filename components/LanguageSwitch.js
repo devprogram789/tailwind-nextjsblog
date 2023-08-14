@@ -4,11 +4,13 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import Image from 'next/image'
+import { LanguageActions } from '../store/swLanguage'
+import { useDispatch } from 'react-redux'
 
 export default function LanguageSwitch() {
   const [searchValue, setSearchValue] = useState('')
   const [enaXbled, setXEnabled] = useState('th')
-
+  const dispatch = useDispatch()
   // const filteredBlogPosts = posts.filter((frontMatter) => {
   //   const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
   //   return searchContent.toLowerCase().includes(searchValue.toLowerCase())
@@ -16,6 +18,12 @@ export default function LanguageSwitch() {
   // const displayPosts =
   //   initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
+  if (enaXbled) {
+    //console.log(enaXbled)
+    dispatch(LanguageActions.setLanguage(enaXbled))
+  }
+
+  // console.log(enaXbled)
   return (
     <div className="w-26 text-right flex">
       <div className="hidden sm:inline-block relative max-w-lg input-container ">
