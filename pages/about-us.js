@@ -4,12 +4,39 @@ import Image from 'next/image'
 import { PageSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import { Dataaaaa } from '@/data/dataset'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+
 const DEFAULT_LAYOUT = 'AuthorLayout'
 
 export async function getStaticProps() {
   const authorDetails = await getFileBySlug('authors', ['default'])
   return { props: { authorDetails } }
 }
+
+const DataSetAbout = [
+  {
+    titlex: 'สำนักงานเศรษฐกิจการเกษตรที่ 6',
+    imgx: '/static/images/About_Us/Cooperation/logo-1.png',
+  },
+  {
+    titlex: 'สำนักงานสถิติจังหวัดจันทบุรี',
+    imgx: '/static/images/About_Us/Cooperation/logo-2.jpg',
+  },
+  {
+    titlex: 'สำนักงานพัฒนาวิทยาศาสตร์',
+    imgx: '/static/images/About_Us/Cooperation/logo-3.png',
+  },
+  {
+    titlex: 'สำนักงานพัฒนาวิทยาศาสตร์',
+    imgx: '/static/images/About_Us/Cooperation/logo-4.png',
+  },
+]
 
 export default function About({ authorDetails }) {
   return (
@@ -99,7 +126,40 @@ export default function About({ authorDetails }) {
         <h3 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
           การทำงานร่วมกัน
         </h3>
-        <div className="mx-auto text-center grid grid-cols-2 md:flex md:flex-row flex-warp items-end gap-4 justify-center md:gap-10 py-4">
+        <div className="mx-auto py-4 max-w-6xl">
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={2}
+            centeredSlides={true}
+            autoplay={{
+              delay: 5500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            loop={true}
+            navigation={false}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {DataSetAbout.map((itexm, ickd) => (
+              <SwiperSlide key={ickd}>
+                <div className="flex flex-col items-end w-32 h-auto">
+                  <Image
+                    className="w-full h-auto object-contain rounded-lg"
+                    src={itexm.imgx}
+                    alt={itexm.titlex}
+                    width="500"
+                    height="500"
+                  />
+                  <p>{itexm.titlex}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        {/* <div className="mx-auto text-center grid grid-cols-2 md:flex md:flex-row flex-warp items-end gap-4 justify-center md:gap-10 py-4">
           <div className="flex flex-col w-32 h-auto">
             <Image
               className="w-full h-auto object-contain rounded-lg"
@@ -140,7 +200,7 @@ export default function About({ authorDetails }) {
             />
             <p>สำนักงานพัฒนาวิทยาศาสตร์</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )
