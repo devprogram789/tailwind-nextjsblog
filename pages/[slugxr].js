@@ -41,7 +41,7 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
 
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="divide-y divide-gray-200 dark:divide-gray-700 px-0 md:px-52">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             {posts[0]['data']['title_th']}
@@ -163,7 +163,7 @@ export default function Agriculture({ posts, initialDisplayPosts, pagination }) 
         description={siteMetadata.description}
       />
       <Image
-        className="w-full h-auto object-contain rounded-2xl"
+        className="w-full h-auto object-contain rounded-none"
         src={'https://baansuanpui.com/' + posts[0]['data']['banner_path']}
         alt="banner"
         width="1920"
@@ -176,7 +176,7 @@ export default function Agriculture({ posts, initialDisplayPosts, pagination }) 
           pagination={pagination}
           title={posts[0]['data']['title_th']}
         />
-        <div>
+        <div className="px-0 md:px-52">
           <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             งานวิจัยพร้อมใช้
           </h2>

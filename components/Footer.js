@@ -9,7 +9,7 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <footer
-      className="mx-auto max-w-7xl xl:px-0 bg-[url('/static/images/bg-footer-01.png')] object-cover"
+      className="mx-auto xl:px-0 bg-[url('/static/images/bg-footer-01.png')] object-cover"
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" className="sr-only">

@@ -30,18 +30,18 @@ export default function Home({ DataCatego, DataGene }) {
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div>
-        <div className="py-2">
+        <div className="py-0">
           <Image
-            className="w-full h-auto object-contain rounded-2xl"
+            className="w-full h-auto object-contain rounded-none"
             src={'https://baansuanpui.com/' + DataGene[0].index_cover_path}
             alt={DataGene[0].index_title_content}
             width="1920"
             height="1080"
           />
         </div>
-        <div className="py-2 hidden sm:block">
-          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover rounded-2xl">
-            <div className="w-full h-auto mt-48 grid grid-cols-4 content-end px-28 gap-10">
+        <div className="py-0 hidden sm:block">
+          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover rounded-none">
+            <div className="px-0 md:px-52 w-full h-auto mt-48 grid grid-cols-4 content-end gap-10">
               <div className="col-span-2 w-full h-auto ">
                 <Image
                   className="w-full h-auto object-contain rounded-2xl"
@@ -69,7 +69,7 @@ export default function Home({ DataCatego, DataGene }) {
             {siteMetadata.description}
           </p> */}
         </div>
-        <ul className="px-0 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
+        <ul className="px-0 md:px-52 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
           <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
             {!DataCatego.length && 'No posts found.'}
             {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
