@@ -39,19 +39,19 @@ export default function Home({ DataCatego, DataGene }) {
             height="1080"
           />
         </div>
-        <div className="py-0 hidden sm:block">
-          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-cover rounded-none">
-            <div className="px-0 md:px-52 w-full h-auto mt-48 grid grid-cols-4 content-end gap-10">
-              <div className="col-span-2 w-full h-auto ">
+        <div className="py-0 flex sm:block">
+          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover rounded-none">
+            <div className="px-0 md:px-52 w-full h-auto mt-10 md:mt-48 grid grid-cols-1 md:grid-cols-4 content-end gap-10">
+              <div className="col-span-1 md:col-span-2 px-4 md:px-0 w-full h-auto ">
                 <Image
-                  className="w-full h-auto object-contain rounded-2xl"
+                  className="w-full h-auto object-contain rounded-md md:rounded-2xl"
                   src={'/static/images/Home_Hero.jpg'}
                   alt="bg_data_center_2"
                   width="500"
                   height="300"
                 />
               </div>
-              <div className="rounded-2xl px-4 py-4 bg-white/80 h-[330px] col-span-2 text-gray-100 overflow-y-auto">
+              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[480px] col-span-1 md:col-span-2 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   {languageSW.Language == 'th'
                     ? DataGene[0].contact_us_th
