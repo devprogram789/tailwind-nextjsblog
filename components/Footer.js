@@ -31,9 +31,9 @@ export default function Footer() {
             </h3>
             <ul role="list" className="mt-6 space-y-4 text-[#004FB3]">
               {languageSW.Language == 'th' ? (
-                <p className="text-sm leading-6 ">{footerDataX.footer.address_th}</p>
+                <p className="text-sm leading-6 ">{footerDataX?.footer?.address_th}</p>
               ) : (
-                <p className="text-sm leading-6 ">{footerDataX.footer.address_en}</p>
+                <p className="text-sm leading-6 ">{footerDataX?.footer?.address_en}</p>
               )}
               {/* <p className="text-sm leading-6 ">มหาวิทยาลัยบูรพา วิทยาเขตจันทบุรี</p>
               <p className="text-sm leading-6 ">อาคาร 100 ปี สมเด็จพระศรีนครินทร์</p>
