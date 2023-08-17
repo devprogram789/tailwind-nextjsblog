@@ -5,8 +5,12 @@ import Line_icon from '@/data/img/icon/Line-icon.png'
 import youtube_icon from '@/data/img/icon/youtube-icon.png'
 import SocialIcon from '@/components/social-icons'
 import Link from 'next/link'
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function Footer() {
+  const footerDataX = useSelector((state) => state.footer)
+  const languageSW = useSelector((state) => state.language)
+  //console.log(footerDataX)
   return (
     <footer
       className="mx-auto xl:px-0 bg-[url('/static/images/bg-footer-01.png')] object-cover"
@@ -22,21 +26,31 @@ export default function Footer() {
 
         <div className="w-full md:grid md:grid-cols-2 md:gap-8 col-span-2">
           <div className="w-full ">
-            <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">ที่อยู่</h3>
+            <h3 className="text-lg font-semibold text-[#004FB3] leading-6">
+              {languageSW.Language == 'th' ? 'ที่อยู่' : 'Address'}
+            </h3>
             <ul role="list" className="mt-6 space-y-4 text-[#004FB3]">
-              <p className="text-sm leading-6 ">DATA CENTER BUU CHANTHABURI</p>
-              <p className="text-sm leading-6 ">มหาวิทยาลัยบูรพา วิทยาเขตจันทบุรี</p>
+              {languageSW.Language == 'th' ? (
+                <p className="text-sm leading-6 ">{footerDataX.footer.address_th}</p>
+              ) : (
+                <p className="text-sm leading-6 ">{footerDataX.footer.address_en}</p>
+              )}
+              {/* <p className="text-sm leading-6 ">มหาวิทยาลัยบูรพา วิทยาเขตจันทบุรี</p>
               <p className="text-sm leading-6 ">อาคาร 100 ปี สมเด็จพระศรีนครินทร์</p>
               <p className="text-sm leading-6 ">57 หมู่ 1 ถนนชลประทาน ตำบลโขมง</p>
-              <p className="text-sm leading-6 ">อำเภอท่าใหม่ จังหวัดจันทบุรี 22170</p>
+              <p className="text-sm leading-6 ">อำเภอท่าใหม่ จังหวัดจันทบุรี 22170</p> */}
             </ul>
           </div>
           <div className="mt-10 md:mt-0">
-            <h3 className="text-lg font-semibold text-[#004FB3]">โทรศัพท์</h3>
+            <h3 className="text-lg font-semibold text-[#004FB3]">
+              {languageSW.Language == 'th' ? 'โทรศัพท์' : 'Telephone'}
+            </h3>
             <p className="text-sm leading-6 text-[#004FB3]">039-310-000</p>
-            <h3 className="text-lg font-semibold text-[#004FB3]">อีเมล์</h3>
+            <h3 className="text-lg font-semibold text-[#004FB3]">
+              {languageSW.Language == 'th' ? 'อีเมล์' : 'Email'}
+            </h3>
             <div className="flex gap-2 items-center text-[#004FB3]">
-              <SocialIcon kind="mail" href={`mailto:arees@go.buu.ac.th`} />
+              {/* <SocialIcon kind="mail" href={`mailto:arees@go.buu.ac.th`} /> */}
               arees@go.buu.ac.th
             </div>
 
@@ -46,7 +60,9 @@ export default function Footer() {
 
         <div className="w-full">
           <div className="mt-10 md:mt-0">
-            <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">ช่องทางการติดต่อ</h3>
+            <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">
+              {languageSW.Language == 'th' ? 'ช่องทางการติดต่อ' : 'Contact'}
+            </h3>
             <div className="w-full flex items-center gap-4">
               <div>
                 <Link

@@ -8,7 +8,8 @@ import Image from 'next/image'
 import NewsletterForm from '@/components/NewsletterForm'
 import banner_1920x980 from '@/data/img/banner/banner_1920x980.jpg'
 import bg_data_center_2 from '@/data/img/banner/bg_data_center_2.png'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { footerActions } from '../store/footerData'
 
 const MAX_DISPLAY = 12
 
@@ -19,13 +20,17 @@ export async function getStaticProps() {
   const resxza = await fetch(`https://baansuanpui.com/api/generals`)
   const DataGenerals = await resxza.json()
   // const jdata = DataCategories.json()
-  // console.log(DataGenerals)
+  //console.log(DataGenerals)
   return { props: { DataCatego: DataCategories, DataGene: DataGenerals } }
 }
 
 export default function Home({ DataCatego, DataGene }) {
+  const dispatch = useDispatch()
   const languageSW = useSelector((state) => state.language)
   //console.log(languageSW.Language)
+  if (DataGene['footer'][0]) {
+    dispatch(footerActions.setfooterData(DataGene['footer'][0]))
+  }
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
@@ -33,8 +38,8 @@ export default function Home({ DataCatego, DataGene }) {
         <div className="py-0">
           <Image
             className="w-full h-auto object-contain rounded-none"
-            src={'https://baansuanpui.com/' + DataGene[0].index_cover_path}
-            alt={DataGene[0].index_title_content}
+            src={'https://baansuanpui.com/' + DataGene['data'][0].index_cover_path}
+            alt={DataGene['data'][0].index_title_content}
             width="1920"
             height="1080"
           />
@@ -54,8 +59,8 @@ export default function Home({ DataCatego, DataGene }) {
               <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[480px] col-span-1 md:col-span-2 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   {languageSW.Language == 'th'
-                    ? DataGene[0].contact_us_th
-                    : DataGene[0].contact_us_en}
+                    ? DataGene['data'][0].contact_us_th
+                    : DataGene['data'][0].contact_us_en}
                 </p>
               </div>
             </div>
@@ -95,7 +100,7 @@ export default function Home({ DataCatego, DataGene }) {
                   <div className="space-y-2 ">
                     <div>
                       <Image
-                        className="w-full h-auto object-contain rounded-md md:rounded-2xl"
+                        className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
                         src={'https://baansuanpui.com/' + cover_path}
                         alt={alt_cover}
                         width="500"
