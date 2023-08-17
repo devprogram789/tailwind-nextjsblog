@@ -14,7 +14,7 @@ export default function Contact() {
     <>
       <PageSEO title={`Contact - ${siteMetadata.author}`} description={siteMetadata.description} />
       <Image
-        className="w-full h-auto object-contain rounded-2xl"
+        className="w-full h-auto object-contain rounded-none"
         src={'/static/images/Contact_Us/banner_1920x980_02.jpg'}
         alt="Banner-Contact"
         width="1920"

@@ -44,15 +44,15 @@ export default function About(props) {
       <PageSEO title={`About Us - ${siteMetadata.author}`} description={siteMetadata.description} />
       <div>
         <Image
-          className="w-full h-auto object-contain rounded-2xl"
+          className="w-full h-auto object-contain rounded-none"
           src={'/static/images/About_Us/Banner_ax.jpg'}
           alt="banner"
           width="1920"
           height="1080"
         />
-        <div className="py-2 hidden sm:block">
-          <div className="relative py-16 mx-10">
-            <div className="w-full h-auto grid grid-cols-4 content-end bg-[#008080] rounded-lg">
+        <div className="py-2 flex sm:block">
+          <div className="relative mx-auto max-w-6xl py-16">
+            <div className="w-full h-auto grid grid-cols-1 md:grid-cols-4 content-end bg-[#008080] rounded-lg">
               <div className="col-span-2 w-full h-auto">
                 <Image
                   className="w-full h-auto object-contain rounded-l-lg"
@@ -89,8 +89,8 @@ export default function About(props) {
         <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
           โครงสร้างการบริหาร
         </h2>
-        <div className="mx-auto max-w-2xl ">
-          <div className="grid grid-cols-4 gap-10 py-4">
+        <div className="mx-auto max-w-6xl ">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-4">
             <Image
               className="w-full h-auto object-contain rounded-lg"
               src={'https://baansuanpui.com/' + props.itemm[0].data.path}
@@ -98,7 +98,7 @@ export default function About(props) {
               width="300"
               height="500"
             />
-            <div className="col-span-3 flex items-center">
+            <div className="col-span-2 flex items-center">
               <p className="text-md">{props.itemm[0].data.detail}</p>
             </div>
           </div>
