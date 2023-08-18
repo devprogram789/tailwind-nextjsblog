@@ -39,6 +39,7 @@
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
+    "react-iframe": "^1.8.5",
     "react-picky": "^5.3.2",
     "react-redux": "^8.1.2",
     "reading-time": "1.5.0",
@@ -54,7 +55,8 @@
     "sharp": "^0.32.4",
     "swiper": "^10.1.0",
     "tailwindcss": "^3.0.23",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
@@ -72,6 +74,7 @@
     "next-remote-watch": "^2.0.0",
     "prettier": "^3.0.1",
     "prettier-plugin-tailwindcss": "^0.4.1",
+    "pullstate": "^1.25.0",
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.4.0"
   },

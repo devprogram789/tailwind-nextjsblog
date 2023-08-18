@@ -10,6 +10,13 @@ import banner_1920x980 from '@/data/img/banner/banner_1920x980.jpg'
 import bg_data_center_2 from '@/data/img/banner/bg_data_center_2.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { footerActions } from '../store/footerData'
+import Iframe from 'react-iframe'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
 const MAX_DISPLAY = 12
 
@@ -21,6 +28,7 @@ export async function getStaticProps() {
   const DataGenerals = await resxza.json()
   // const jdata = DataCategories.json()
   //console.log(DataGenerals)
+
   return { props: { DataCatego: DataCategories, DataGene: DataGenerals } }
 }
 
@@ -31,11 +39,32 @@ export default function Home({ DataCatego, DataGene }) {
   if (DataGene['footer'][0]) {
     dispatch(footerActions.setfooterData(DataGene['footer'][0]))
   }
+  const DataGeneTTTT = [
+    {
+      id: 1,
+      title_th: 'xxx',
+      path: 'https://baansuanpui.com/' + DataGene['data'][0].index_cover_path,
+      type: 'image',
+    },
+    {
+      id: 2,
+      title_th: 'xxx',
+      path: 'https://baansuanpui.com/' + DataGene['data'][0].index_cover_path,
+      type: 'image',
+    },
+    {
+      id: 3,
+      title_th: 'xxx',
+      path: 'https://www.youtube.com/embed/T2vNeQ36dKc',
+      type: 'video',
+    },
+  ]
+
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div>
-        <div className="py-0">
+        {/* <div className="py-0">
           <Image
             className="w-full h-auto object-contain rounded-none"
             src={'https://baansuanpui.com/' + DataGene['data'][0].index_cover_path}
@@ -43,6 +72,43 @@ export default function Home({ DataCatego, DataGene }) {
             width="1920"
             height="1080"
           />
+        </div>  */}
+        <div className="mx-auto">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={0}
+            //centeredSlides={true}
+            autoplay={{
+              delay: 5500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            loop={true}
+            navigation={false}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {DataGeneTTTT.map((itexm, ickd) => (
+              <SwiperSlide key={ickd}>
+                <div className="flex flex-col items-center text-center">
+                  {itexm.type == 'image' ? (
+                    <Image
+                      className="w-full h-auto object-contain rounded-md"
+                      src={itexm.path}
+                      alt={itexm.title_th}
+                      width="1920"
+                      height="1080"
+                    />
+                  ) : null}
+                  {itexm.type == 'video' ? (
+                    <Iframe url={itexm.path} className="w-full aspect-video h-[980px]" />
+                  ) : null}
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
         <div className="py-0 flex sm:block">
           <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover rounded-none">
@@ -99,13 +165,15 @@ export default function Home({ DataCatego, DataGene }) {
                 >
                   <div className="space-y-2 ">
                     <div>
-                      <Image
-                        className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
-                        src={'https://baansuanpui.com/' + cover_path}
-                        alt={alt_cover}
-                        width="500"
-                        height="500"
-                      />
+                      <Link href={`/${slug}`}>
+                        <Image
+                          className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
+                          src={'https://baansuanpui.com/' + cover_path}
+                          alt={alt_cover}
+                          width="500"
+                          height="500"
+                        />
+                      </Link>
                       <div className="py-4">
                         <div className="text-center">
                           <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
@@ -113,31 +181,11 @@ export default function Home({ DataCatego, DataGene }) {
                               {languageSW.Language == 'th' ? title_th : title_en}
                             </Link>
                           </h2>
-                          {/* <dl>
-                          <dt className="sr-only">Published on</dt>
-                          <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                            <time dateTime={date}>{formatDate(date)}</time>
-                          </dd>
-                        </dl> */}
-                          {/* <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
-                          </div> */}
                         </div>
                         <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
                           {des_th}
                         </p>
                       </div>
-                      {/* <div className="text-base font-medium leading-6">
-                        <Link
-                          href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read "${title}"`}
-                        >
-                          อ่านต่อ &rarr;
-                        </Link>
-                      </div> */}
                     </div>
                   </div>
                 </article>
