@@ -19,21 +19,31 @@ export default function Footer() {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto px-6 py-16 sm:py-24 lg:px-8 lg:py-32 xl:grid xl:grid-cols-4 xl:gap-8">
+      <div className="mx-auto px-6 py-16 sm:py-24 lg:px-8 lg:py-32 xl:grid xl:grid-cols-4 xl:gap-8 divide-x-2 divide-[#004DB3]">
         <div className="w-full flex items-center">
-          <Image className="w-full h-auto object-contain px-10" src={logofooter} alt="logofooter" />
+          <Image className="w-full h-auto object-contain px-20" src={logofooter} alt="logofooter" />
         </div>
 
-        <div className="w-full md:grid md:grid-cols-2 md:gap-8 col-span-2">
-          <div className="w-full ">
-            <h3 className="text-lg font-semibold text-[#004FB3] leading-6">
+        <div className="w-full md:grid md:grid-cols-2 md:gap-16 col-span-2">
+          <div className="w-full px-14">
+            <h3 className="text-lg font-semibold text-[#004FB3] leading-9">
               {languageSW.Language == 'th' ? 'ที่อยู่' : 'Address'}
             </h3>
-            <ul role="list" className="mt-6 space-y-4 text-[#004FB3]">
+            <ul role="list" className="text-[#004FB3]">
               {languageSW.Language == 'th' ? (
-                <p className="text-sm leading-6 ">{footerDataX?.footer?.address_th}</p>
+                <div
+                  className="text-base leading-9"
+                  dangerouslySetInnerHTML={{
+                    __html: footerDataX?.footer?.address_th,
+                  }}
+                />
               ) : (
-                <p className="text-sm leading-6 ">{footerDataX?.footer?.address_en}</p>
+                <div
+                  className="text-base leading-9"
+                  dangerouslySetInnerHTML={{
+                    __html: footerDataX?.footer?.address_en,
+                  }}
+                />
               )}
               {/* <p className="text-sm leading-6 ">มหาวิทยาลัยบูรพา วิทยาเขตจันทบุรี</p>
               <p className="text-sm leading-6 ">อาคาร 100 ปี สมเด็จพระศรีนครินทร์</p>
@@ -42,28 +52,28 @@ export default function Footer() {
             </ul>
           </div>
           <div className="mt-10 md:mt-0">
-            <h3 className="text-lg font-semibold text-[#004FB3]">
+            <h3 className="text-lg leading-9 font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'โทรศัพท์' : 'Telephone'}
             </h3>
-            <p className="text-sm leading-6 text-[#004FB3]">039-310-000</p>
+            <p className="text-base leading-9 text-[#004FB3]">039-310-000</p>
             <h3 className="text-lg font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'อีเมล์' : 'Email'}
             </h3>
-            <div className="flex gap-2 items-center text-[#004FB3]">
+            <div className="leading-9 text-[#004FB3]">
               {/* <SocialIcon kind="mail" href={`mailto:arees@go.buu.ac.th`} /> */}
-              arees@go.buu.ac.th
+              <p className="text-base leading-9 text-[#004FB3]">arees@go.buu.ac.th</p>
             </div>
 
             {/* <p className="text-sm leading-6 text-[#004FB3]">arees@go.buu.ac.th</p> */}
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="w-full px-10">
           <div className="mt-10 md:mt-0">
-            <h3 className="text-sm font-semibold leading-6 text-[#004FB3]">
+            <h3 className="text-lg leading-9 font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'ช่องทางการติดต่อ' : 'Contact'}
             </h3>
-            <div className="w-full flex items-center gap-4">
+            <div className="w-full flex items-center gap-2 mt-4">
               <div>
                 <Link
                   href={'https://www.facebook.com/buu.ac.th/'}
@@ -72,7 +82,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    className="w-20 h-20 object-contain px-2"
+                    className="w-16 h-16 object-contain"
                     src={facebook_icon}
                     alt="facebook buu"
                   />
@@ -85,7 +95,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Image className="w-20 h-20 object-contain px-2" src={Line_icon} alt="line buu" />
+                  <Image className="w-16 h-16 object-contain" src={Line_icon} alt="line buu" />
                 </Link>
               </div>
               <div>
@@ -96,7 +106,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    className="w-20 h-20 object-contain px-2"
+                    className="w-16 h-16 object-contain"
                     src={youtube_icon}
                     alt="youtube buu"
                   />

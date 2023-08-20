@@ -28,7 +28,7 @@ export default function LanguageSwitch() {
     <div className="w-26 text-right flex">
       <div className="hidden sm:inline-block relative max-w-lg input-container ">
         <svg
-          className="icon-search absolute left-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
+          className="icon-search absolute left-3 top-5 h-5 w-5 text-[#333]"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -41,12 +41,13 @@ export default function LanguageSwitch() {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
+
         <input
           placeholder="ค้นหาข้อมูล..."
           className="input-search"
           name="text"
           type="text"
-          aria-label="Search articles"
+          aria-label="ค้นหาข้อมูล"
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>

@@ -63,7 +63,7 @@ export default function Home({ DataCatego, DataGene }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
-      <div>
+      <div className="pb-48">
         {/* <div className="py-0">
           <Image
             className="w-full h-auto object-contain rounded-none"
@@ -92,7 +92,7 @@ export default function Home({ DataCatego, DataGene }) {
           >
             {DataGeneTTTT.map((itexm, ickd) => (
               <SwiperSlide key={ickd}>
-                <div >
+                <div>
                   {itexm.type == 'image' ? (
                     <Image
                       className="w-full h-full object-contain mt-14 md:mt-22"
@@ -113,18 +113,18 @@ export default function Home({ DataCatego, DataGene }) {
           </Swiper>
         </div>
         <div className="py-0 flex sm:block">
-          <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover rounded-none">
+          <div className="relative pt-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover">
             <div className="px-0 md:px-52 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-8 content-end gap-10 py-20">
               <div className="col-span-1 md:col-span-5 px-4 md:px-0 w-full h-auto ">
                 <Image
-                  className="w-full h-auto object-contain rounded-md md:rounded-2xl"
+                  className="w-full h-[500px] object-cover rounded-md md:rounded-2xl"
                   src={'/static/images/Home_Hero.jpg'}
                   alt="bg_data_center_2"
                   width="800"
                   height="400"
                 />
               </div>
-              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[480px] col-span-1 md:col-span-3 text-gray-100 overflow-y-auto">
+              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[500px] col-span-1 md:col-span-3 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   {languageSW.Language == 'th'
                     ? DataGene['data'][0].contact_us_th
@@ -134,67 +134,72 @@ export default function Home({ DataCatego, DataGene }) {
             </div>
           </div>
         </div>
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-lg font-extrabold leading-9 text-center tracking-tight text-[#0966D5] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-3xl md:leading-14">
-            ข้อมูลให้บริการ
-          </h1>
-          {/* <p className="text-lg leading-7 text-gray-500 text-center dark:text-gray-400">
+        <div className="bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover bg-bottom">
+          <div className="space-y-2 pt-28 pb-20 md:space-y-2">
+            <h1 className="text-lg font-extrabold text-center tracking-tight text-[#0966D5] dark:text-gray-100 sm:leading-4 md:text-5xl md:leading-6">
+              ข้อมูลให้บริการ
+            </h1>
+            {/* <p className="text-lg leading-7 text-gray-500 text-center dark:text-gray-400">
             {siteMetadata.description}
           </p> */}
-        </div>
-        <ul className="px-0 md:px-52 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
-          <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
-            {!DataCatego.length && 'No posts found.'}
-            {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
-              //const { slug, date, title, summary, tags, images } = frontMatter
-              const {
-                id,
-                title_th,
-                title_en,
-                cover_path,
-                alt_cover,
-                banner_path,
-                alt_banner,
-                des_th,
-                slug,
-                des_en,
-                enable,
-              } = frontMatter.data
-              return (
-                <article
-                  key={indxs}
-                  className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4"
-                >
-                  <div className="space-y-2 ">
-                    <div>
-                      <Link href={`/${slug}`}>
-                        <Image
-                          className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
-                          src={'https://baansuanpui.com/' + cover_path}
-                          alt={alt_cover}
-                          width="500"
-                          height="500"
-                        />
-                      </Link>
-                      <div className="py-4">
-                        <div className="text-center">
-                          <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
-                            <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
-                              {languageSW.Language == 'th' ? title_th : title_en}
-                            </Link>
-                          </h2>
+          </div>
+          <ul className="px-0 md:px-52 md:px-10">
+            <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-14 md:gap-y-20 items-baseline">
+              {!DataCatego.length && 'No posts found.'}
+              {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
+                //const { slug, date, title, summary, tags, images } = frontMatter
+                const {
+                  id,
+                  title_th,
+                  title_en,
+                  cover_path,
+                  alt_cover,
+                  banner_path,
+                  alt_banner,
+                  des_th,
+                  slug,
+                  des_en,
+                  enable,
+                } = frontMatter.data
+                return (
+                  <article
+                    key={indxs}
+                    className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-7 md:py-7"
+                  >
+                    <div className="space-y-2 ">
+                      <div>
+                        <Link href={`/${slug}`}>
+                          <Image
+                            className="w-full h-[280px] object-cover rounded-md md:rounded-2xl"
+                            src={'https://baansuanpui.com/' + cover_path}
+                            alt={alt_cover}
+                            width="500"
+                            height="500"
+                          />
+                        </Link>
+                        <div className="py-4">
+                          <div className="text-center">
+                            <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight">
+                              <Link href={`/${slug}`}>
+                                <div>
+                                  <h2 className="text-2xl text-[#008080] leading-12">{title_en}</h2>
+                                  <p className="text-base text-gray-500/80 leading-6">{title_th}</p>
+                                </div>
+                              </Link>
+                            </h2>
+                          </div>
+                          <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
+                            {des_th}
+                          </p>
                         </div>
-                        <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
-                          {des_th}
-                        </p>
                       </div>
                     </div>
-                  </div>
-                </article>
-              )
-            })}
-          </li>
-        </ul>
+                  </article>
+                )
+              })}
+            </li>
+          </ul>
+        </div>
       </div>
       {DataCatego.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
