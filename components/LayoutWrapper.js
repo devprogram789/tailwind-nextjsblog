@@ -12,12 +12,12 @@ const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <header className="fixed w-full top-0 z-10 px-4 flex items-center justify-between py-4 bg-white">
+        <header className="fixed w-full top-0 z-10 px-4 md:px-4 flex items-center justify-between py-2 md:py-4 bg-white shadow-lg">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
                 <div className="mr-3">
-                  <Image className="w-24 h-auto" src={Logo} alt="LOGO" />
+                  <Image className="w-20 md:w-32 h-auto" src={Logo} alt="LOGO" />
                 </div>
               </div>
             </Link>

@@ -92,10 +92,10 @@ export default function Home({ DataCatego, DataGene }) {
           >
             {DataGeneTTTT.map((itexm, ickd) => (
               <SwiperSlide key={ickd}>
-                <div className="flex flex-col items-center text-center">
+                <div >
                   {itexm.type == 'image' ? (
                     <Image
-                      className="w-full h-auto object-contain rounded-md"
+                      className="w-full h-full object-contain mt-14 md:mt-22"
                       src={itexm.path}
                       alt={itexm.title_th}
                       width="1920"
@@ -103,7 +103,9 @@ export default function Home({ DataCatego, DataGene }) {
                     />
                   ) : null}
                   {itexm.type == 'video' ? (
-                    <Iframe url={itexm.path} className="w-full aspect-video h-[980px]" />
+                    <div>
+                      <Iframe url={itexm.path} className="w-full aspect-video mt-14 md:-mt-10" />
+                    </div>
                   ) : null}
                 </div>
               </SwiperSlide>
@@ -112,17 +114,17 @@ export default function Home({ DataCatego, DataGene }) {
         </div>
         <div className="py-0 flex sm:block">
           <div className="relative py-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover rounded-none">
-            <div className="px-0 md:px-52 w-full h-auto mt-10 md:mt-48 grid grid-cols-1 md:grid-cols-4 content-end gap-10">
-              <div className="col-span-1 md:col-span-2 px-4 md:px-0 w-full h-auto ">
+            <div className="px-0 md:px-52 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-8 content-end gap-10 py-20">
+              <div className="col-span-1 md:col-span-5 px-4 md:px-0 w-full h-auto ">
                 <Image
                   className="w-full h-auto object-contain rounded-md md:rounded-2xl"
                   src={'/static/images/Home_Hero.jpg'}
                   alt="bg_data_center_2"
-                  width="500"
-                  height="300"
+                  width="800"
+                  height="400"
                 />
               </div>
-              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[480px] col-span-1 md:col-span-2 text-gray-100 overflow-y-auto">
+              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[480px] col-span-1 md:col-span-3 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   {languageSW.Language == 'th'
                     ? DataGene['data'][0].contact_us_th
