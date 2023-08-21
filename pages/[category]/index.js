@@ -14,6 +14,8 @@ import axios from 'axios'
 import FullYearXS from '@/components/FullYearXS'
 import FullMonthXS from '@/components/FullMonthXS'
 import { useSelector, useDispatch } from 'react-redux'
+import PaginationPX from '@/components/PaginationPX'
+import ReactPaginate from 'react-paginate'
 
 export async function getServerSideProps(context) {
   // const dispatch = useDispatch();
@@ -172,8 +174,76 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
   )
 }
 
+function Items({ currentItems }) {
+  //console.log(currentItems)
+  return (
+    <>
+      <div className="py-8 px-4 grid grid-cols-1 md:grid-cols-2 gap-10">
+        {currentItems &&
+          currentItems.map((item, indexa) => (
+            <Link
+              key={indexa}
+              href={item['link']}
+              className="group block w-full mx-auto rounded-lg p-6 bg-white/50 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
+            >
+              <div className="flex items-center space-x-3">
+                <Image
+                  className="h-6 w-6 stroke-sky-500 group-hover:stroke-white"
+                  src={'/static/images/folder-icon.png'}
+                  alt="banner"
+                  width="100"
+                  height="100"
+                />
+                <h3 className="text-slate-900 group-hover:text-white text-lg font-semibold">
+                  {item['title_th']}
+                </h3>
+              </div>
+              <p className="text-slate-500 group-hover:text-white text-sm">{item['des_th']}</p>
+            </Link>
+          ))}
+      </div>
+    </>
+  )
+}
+
+function PaginatedItems({ datax, itemsPerPage }) {
+  const [itemOffset, setItemOffset] = useState(0)
+  const endOffset = itemOffset + itemsPerPage
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+  const currentItems = datax.slice(itemOffset, endOffset)
+  const pageCount = Math.ceil(datax.length / itemsPerPage)
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % datax.length
+    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
+    setItemOffset(newOffset)
+  }
+
+  return (
+    <>
+      <Items currentItems={currentItems} />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="previous"
+        renderOnZeroPageCount={null}
+        className="ReactPaginate flex justify-center gap-4"
+      />
+    </>
+  )
+}
+
 export default function CategoryPage({ posts, initialDisplayPosts, pagination }) {
-  //console.log()
+  // console.log(posts[0]['research_data'])
+  useEffect(() => {
+    const getXProject = async () => {
+      Items(posts[0]['research_data'])
+    }
+    getXProject()
+    return () => {}
+  }, [])
   return (
     <>
       <PageSEO
@@ -194,35 +264,12 @@ export default function CategoryPage({ posts, initialDisplayPosts, pagination })
           pagination={pagination}
           title={posts[0]['data']['title_th']}
         />
-        <div className="mt-10 md:px-52">
+        <div className="mt-10 md:px-52 my-10">
           <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             งานวิจัยพร้อมใช้
           </h2>
-          <div className="py-8 px-4 grid grid-cols-1 md:grid-cols-2 gap-10">
-            {posts[0]['research_data'].map((dx, ix) => {
-              return (
-                <Link
-                  key={ix}
-                  href={dx['link']}
-                  className="group block w-full mx-auto rounded-lg p-6 bg-white/50 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
-                >
-                  <div className="flex items-center space-x-3">
-                    <Image
-                      className="h-6 w-6 stroke-sky-500 group-hover:stroke-white"
-                      src={'/static/images/folder-icon.png'}
-                      alt="banner"
-                      width="100"
-                      height="100"
-                    />
-                    <h3 className="text-slate-900 group-hover:text-white text-lg font-semibold">
-                      {dx['title_th']}
-                    </h3>
-                  </div>
-                  <p className="text-slate-500 group-hover:text-white text-sm">{dx['des_th']}</p>
-                </Link>
-              )
-            })}
-          </div>
+
+          <PaginatedItems datax={posts[0]['research_data']} itemsPerPage={10} />
         </div>
       </div>
     </>

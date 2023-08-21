@@ -11,7 +11,7 @@
 }
 
 .footnotes {
-  @apply pt-8 mt-12 border-t border-gray-200 dark:border-gray-700;
+  @apply pt-8 mt-12 border-t border-gray-200;
 }
 
 .csl-entry {
@@ -66,7 +66,8 @@ input:-webkit-autofill:focus {
   color: rgb(131, 128, 128);
 }
 
-.input-search:focus,.input-search:not(:placeholder-shown) {
+.input-search:focus,
+.input-search:not(:placeholder-shown) {
   background-color: #fff;
   /* border: 1px solid rgb(100, 100, 100); */
   width: 290px;
@@ -87,12 +88,13 @@ input:-webkit-autofill:focus {
   /* border: 1px solid rgb(68, 68, 68);  */
 }
 
-.input-search:hover + .icon-search {
+.input-search:hover+.icon-search {
   transform: rotate(360deg);
   transition: 0.2s ease-in-out;
 }
 
-.input-search:focus + .icon,.input-search:not(:placeholder-shown) + .icon-search {
+.input-search:focus+.icon,
+.input-search:not(:placeholder-shown)+.icon-search {
   z-index: 0;
   background-color: transparent;
   border: none;
@@ -104,21 +106,54 @@ input:-webkit-autofill:focus {
   border-radius: 1rem;
   background: #e8e8e8;
   box-shadow: 20px 20px 60px #c5c5c5,
-     -20px -20px 60px #ffffff;
+    -20px -20px 60px #ffffff;
   transition: 0.3s;
- }
- 
- .inputMB:focus {
+}
+
+.inputMB:focus {
   outline-color: #e8e8e8;
   background: #e8e8e8;
   box-shadow: inset 20px 20px 60px #c5c5c5,
-     inset -20px -20px 60px #ffffff;
+    inset -20px -20px 60px #ffffff;
   transition: 0.3s;
- }
+}
 
- 
+
 
 .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
- 
-  margin-bottom: -10px; 
+
+  margin-bottom: -10px;
+}
+
+
+
+.ReactPaginate li a {
+  border-radius: 7px;
+  padding: 0.5rem 1rem;
+  border: gray 1px solid;
+  cursor: pointer;
+  box-shadow: 2px 0px 2px rgb(70, 70, 70);
+}
+
+.ReactPaginate li.previous a,
+.ReactPaginate li.next a,
+.ReactPaginate li.break a {
+  border-color: transparent;
+  border: gray 1px solid;
+}
+
+.ReactPaginate li.selected a {
+  background-color: #008080;
+  border-color: transparent;
+  color: white;
+  min-width: 32px;
+}
+
+.ReactPaginate li.disabled a {
+  color: grey;
+}
+
+.ReactPaginate li.disable,
+.ReactPaginate li.disabled a {
+  cursor: default;
 }
