@@ -617,8 +617,8 @@ export default function DataServices({ DataCatego, DataGene }) {
           />
         </div>
 
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-lg font-extrabold leading-9 text-center tracking-tight text-[#0966D5] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-3xl md:leading-14">
+        <div className="space-y-2 pb-2 mt-32">
+          <h1 className="text-lg font-extrabold leading-9 text-center tracking-tight text-[#0966D5] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             ข้อมูลให้บริการ
           </h1>
           {/* <p className="text-lg leading-7 text-gray-500 text-center dark:text-gray-400">
@@ -626,7 +626,7 @@ export default function DataServices({ DataCatego, DataGene }) {
           </p> */}
         </div>
         <ul className="px-0 md:px-52 md:px-10 bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover">
-          <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-10 items-baseline">
+          <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-14 md:gap-y-20 items-baseline">
             {!DataCatego.length && 'No posts found.'}
             {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
               //const { slug, date, title, summary, tags, images } = frontMatter
@@ -646,12 +646,12 @@ export default function DataServices({ DataCatego, DataGene }) {
               return (
                 <article
                   key={indxs}
-                  className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-4 md:py-4"
+                  className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-7 md:py-7"
                 >
                   <div className="space-y-2 ">
                     <div>
                       <Image
-                        className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
+                        className="w-full h-[280px] object-cover rounded-md md:rounded-2xl"
                         src={'https://baansuanpui.com/' + cover_path}
                         alt={alt_cover}
                         width="500"
@@ -659,9 +659,16 @@ export default function DataServices({ DataCatego, DataGene }) {
                       />
                       <div className="py-4">
                         <div className="text-center">
-                          <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight line-clamp-1">
+                          <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight">
                             <Link href={`/${slug}`} className="text-[#0F8787] dark:text-gray-100">
-                              {languageSW.Language == 'th' ? title_th : title_en}
+                              <div>
+                                <h2 className="text-2xl text-[#008080] leading-12">
+                                  {languageSW.Language == 'th' ? title_th : title_en}
+                                </h2>
+                                <p className="text-base text-gray-500/80 leading-6 line-clamp-2">
+                                  {languageSW.Language == 'th' ? des_th : des_en}
+                                </p>
+                              </div>
                             </Link>
                           </h2>
                           {/* <dl>
@@ -676,7 +683,7 @@ export default function DataServices({ DataCatego, DataGene }) {
                             ))}
                           </div> */}
                         </div>
-                        <p className="text-xs md:text-base text-center prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-1">
+                        <p className="text-start prose max-w-none text-gray-500 dark:text-gray-400">
                           {des_th}
                         </p>
                       </div>

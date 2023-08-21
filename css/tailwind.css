@@ -117,3 +117,8 @@ input:-webkit-autofill:focus {
  }
 
  
+
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+ 
+  margin-bottom: -10px; 
+}

@@ -91,20 +91,28 @@ export default function About(props) {
         </h2>
         <div className="mx-auto max-w-6xl ">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-4">
-            <Image
-              className="w-full h-auto object-contain rounded-lg"
-              src={'https://baansuanpui.com/' + props.itemm[0].data.path}
-              alt={props.itemm[0].data.name_surname_th}
-              width="300"
-              height="500"
-            />
-            <div className="col-span-2 flex items-center">
-              <p className="text-md">{props.itemm[0].data.detail}</p>
+            <div className="p-10">
+              <Image
+                className="w-full h-auto object-contain rounded-lg "
+                src={'https://baansuanpui.com/' + props.itemm[0].data.path}
+                alt={props.itemm[0].data.name_surname_th}
+                width="300"
+                height="500"
+              />
             </div>
+
+            <div className="col-span-2 flex items-center max-w-lg mx-auto">
+              <p className="text-md text-center text-[#333]">{props.itemm[0].data.detail}</p>
+            </div>
+          </div>
+          <div>
+            <h2 className="py-8 pl-10 text-lg text-start font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
+              คณะกรรมการ
+            </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10 py-4">
             {props.itemm.slice(1).map((dax) => (
-              <div key={dax.data.id} className="text-center">
+              <div key={dax.data.id} className="text-center p-10">
                 <Image
                   className="w-full h-auto object-contain rounded-lg"
                   src={'https://baansuanpui.com/' + dax.data.path}
@@ -112,8 +120,10 @@ export default function About(props) {
                   width="300"
                   height="500"
                 />
-                <p className="text-lg font-semibold">{dax.data.name_surname_th}</p>
-                <p className="text-md">{dax.data.position}</p>
+                <div className="py-4">
+                  <p className="text-lg font-semibold text-gray-500">{dax.data.name_surname_th}</p>
+                  <p className="text-md text-gray-500">{dax.data.position}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -123,7 +133,7 @@ export default function About(props) {
         <h3 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
           การทำงานร่วมกัน
         </h3>
-        <div className="mx-auto py-4 max-w-3xl">
+        <div className="mx-auto py-4 max-w-6xl">
           <Swiper
             slidesPerView={4}
             spaceBetween={2}
@@ -138,13 +148,13 @@ export default function About(props) {
             loop={true}
             navigation={false}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
+            //className="py-8"
           >
             {props.itemx.map((itexm, ickd) => (
-              <SwiperSlide key={ickd}>
+              <SwiperSlide key={ickd} className="my-8">
                 <div className="flex flex-col items-center text-center">
                   <Image
-                    className="w-32 h-auto object-contain rounded-lg"
+                    className="w-32 h-auto object-contain rounded-lg  py-6"
                     src={'https://baansuanpui.com/' + itexm.path}
                     alt={itexm.title_th}
                     width="500"
