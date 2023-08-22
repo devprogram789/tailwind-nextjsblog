@@ -174,6 +174,66 @@ export function ListALayout({ posts, title, initialDisplayPosts = [], pagination
   )
 }
 
+function ItemsMAIN({ currentItems }) {
+  //console.log(currentItems)
+  const languageSW = useSelector((state) => state.language)
+  return (
+    <>
+      <div className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-14 md:gap-y-20 items-baseline">
+        {currentItems &&
+          currentItems.map((item, indexa) => (
+            <article
+              key={indexa}
+              className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-7 md:py-7"
+            >
+              <div className="space-y-2 ">
+                <div>
+                  <Image
+                    className="w-full h-[280px] object-cover rounded-md md:rounded-2xl"
+                    src={`https://baansuanpui.com/${item.path}`}
+                    alt={item.alt}
+                    width="500"
+                    height="500"
+                    priority
+                  />
+                  <div className="py-4">
+                    <div className="text-start">
+                      <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight">
+                        <Link
+                          href={`/service/${item.id}`}
+                          as={`/service/${item.id}`}
+                          className="text-[#0F8787] dark:text-gray-100"
+                        >
+                          <div>
+                            <h2 className="text-2xl text-[#008080] leading-12">
+                              {languageSW.Language == 'th' ? item.title_th : item.title_en}
+                            </h2>
+                            <p className="text-base text-gray-500/80 leading-6 line-clamp-2">
+                              {languageSW.Language == 'th' ? item.des_th : item.des_en}
+                            </p>
+                          </div>
+                        </Link>
+                      </h2>
+                      <dl>
+                        <dt className="sr-only">Published on</dt>
+                        <dd className="text-md font-medium leading-6 text-gray-500 dark:text-gray-400">
+                          <time dateTime={item.created_at}>{formatDate(item.created_at)}</time>
+                        </dd>
+                      </dl>
+                    </div>
+                    <div className="text-start prose max-w-none text-gray-500 dark:text-gray-400">
+                      {item.des_th}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+      </div>
+    </>
+  )
+}
+
 function Items({ currentItems }) {
   //console.log(currentItems)
   return (
@@ -206,15 +266,44 @@ function Items({ currentItems }) {
   )
 }
 
-function PaginatedItems({ datax, itemsPerPage }) {
+function PaginatedItemsMAIN({ datax, itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
   const endOffset = itemOffset + itemsPerPage
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+  //console.log(`Loading items from ${itemOffset} to ${endOffset}`)
   const currentItems = datax.slice(itemOffset, endOffset)
   const pageCount = Math.ceil(datax.length / itemsPerPage)
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % datax.length
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
+    //console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
+    setItemOffset(newOffset)
+  }
+
+  return (
+    <>
+      <ItemsMAIN currentItems={currentItems} />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="previous"
+        renderOnZeroPageCount={null}
+        className="ReactPaginate flex justify-center gap-4"
+      />
+    </>
+  )
+}
+
+function PaginatedItems({ datax, itemsPerPage }) {
+  const [itemOffset, setItemOffset] = useState(0)
+  const endOffset = itemOffset + itemsPerPage
+  //console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+  const currentItems = datax.slice(itemOffset, endOffset)
+  const pageCount = Math.ceil(datax.length / itemsPerPage)
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % datax.length
+    //console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
     setItemOffset(newOffset)
   }
 
@@ -236,7 +325,45 @@ function PaginatedItems({ datax, itemsPerPage }) {
 }
 
 export default function CategoryPage({ posts, initialDisplayPosts, pagination }) {
-  // console.log(posts[0]['research_data'])
+  const [searchValue, setSearchValue] = useState('')
+  const [YearValue, setYearValue] = useState('')
+  const [MonthValue, setMonthValue] = useState('')
+  const languageSW = useSelector((state) => state.language)
+  const filteredBlogPosts = posts[0]['sub_data'].filter((frontMatter) => {
+    const searchContent = frontMatter.title_th + frontMatter.des_th // + frontMatter.tags.join(' ')
+
+    return searchContent.toLowerCase().includes(searchValue.toLowerCase())
+  })
+  const displayPosts =
+    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
+
+  const GroupYear = [new Date(displayPosts[0].created_at).getFullYear()].reduce(
+    (previous, current) => {
+      if (!previous.includes(current)) {
+        previous.push(current)
+      }
+      return previous
+    },
+    []
+  )
+
+  const GroupMonth = [new Date(displayPosts[0].created_at).getMonth()].reduce(
+    (previous, current) => {
+      if (!previous.includes(current)) {
+        previous.push(current)
+      }
+      return previous
+    },
+    []
+  )
+
+  useEffect(() => {
+    ;(async () => {
+      setMonthValue(GroupMonth)
+      setYearValue(GroupYear)
+    })()
+    return () => {}
+  }, [])
   useEffect(() => {
     const getXProject = async () => {
       Items(posts[0]['research_data'])
@@ -258,12 +385,29 @@ export default function CategoryPage({ posts, initialDisplayPosts, pagination })
         height="1080"
       />
       <div className="px-0 md:px-8 bg-[url('/static/images/bg-blog.png')] bg-cover">
-        <ListALayout
+        {/* <ListALayout
           posts={posts}
           initialDisplayPosts={initialDisplayPosts}
           pagination={pagination}
           title={posts[0]['data']['title_th']}
-        />
+        /> */}
+        <div className="divide-y divide-gray-200 dark:divide-gray-700 px-0 md:px-52">
+          <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+            <h1 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
+              {posts[0]['data']['title_th']}
+            </h1>
+            <div className="flex gap-2 justify-end">
+              <div>
+                <FullYearXS YearDValue={YearValue} lang={languageSW} />
+              </div>
+              <div>
+                <FullMonthXS MonthDValue={MonthValue} lang={languageSW} />
+              </div>
+            </div>
+          </div>
+          <PaginatedItemsMAIN datax={posts[0]['sub_data']} itemsPerPage={9} />
+        </div>
+
         <div className="mt-10 md:px-52 my-10">
           <h2 className="text-lg text-center font-extrabold leading-9 tracking-tight text-[#004DB3] dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             งานวิจัยพร้อมใช้
