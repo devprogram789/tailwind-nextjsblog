@@ -54,11 +54,11 @@ export default function LanguageSwitch() {
 
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex gap-4 w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+          <Menu.Button className="inline-flex gap-4 w-full justify-center rounded-md p-4 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             {enaXbled == 'th' ? (
-              <Image className="w-8 h-auto" src={Flag_of_Thailand} alt="Flag_of_Thailand" />
+              <Image className="w-6 h-auto" src={Flag_of_Thailand} alt="Flag_of_Thailand" />
             ) : (
-              <Image className="w-8 h-auto" src={Flag_United_States} alt="Flag_United_States" />
+              <Image className="w-6 h-auto" src={Flag_United_States} alt="Flag_United_States" />
             )}
           </Menu.Button>
         </div>
@@ -77,20 +77,20 @@ export default function LanguageSwitch() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                      active ? 'bg-[#004DB3] text-white' : 'text-[#333]'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     onClick={(e) => setXEnabled('th')}
                   >
                     {active ? (
                       <Image
-                        className="mr-2 w-8 h-auto"
+                        className="mr-2 w-6 h-auto"
                         aria-hidden="true"
                         src={Flag_of_Thailand}
                         alt="Flag_of_Thailand"
                       />
                     ) : (
                       <Image
-                        className="mr-2 w-8 h-auto"
+                        className="mr-2 w-6 h-auto"
                         aria-hidden="true"
                         src={Flag_of_Thailand}
                         alt="Flag_United_States"
@@ -104,20 +104,20 @@ export default function LanguageSwitch() {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                      active ? 'bg-[#004DB3] text-white' : 'text-[#333]'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     onClick={(e) => setXEnabled('en')}
                   >
                     {active ? (
                       <Image
-                        className="mr-2 w-8 h-auto"
+                        className="mr-2 w-6 h-auto"
                         aria-hidden="true"
                         src={Flag_United_States}
                         alt="Flag_United_States"
                       />
                     ) : (
                       <Image
-                        className="mr-2 w-8 h-auto"
+                        className="mr-2 w-6 h-auto"
                         aria-hidden="true"
                         src={Flag_United_States}
                         alt="Flag_of_Thailand"

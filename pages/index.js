@@ -114,7 +114,7 @@ export default function Home({ DataCatego, DataGene }) {
         </div>
         <div className="py-0 flex sm:block">
           <div className="relative pt-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover">
-            <div className="px-0 md:px-52 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-8 content-end gap-10 py-20">
+            <div className="px-0 md:px-72 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-8 content-end gap-10 py-20">
               <div className="col-span-1 md:col-span-5 px-4 md:px-0 w-full h-auto ">
                 <Image
                   className="w-full h-[500px] object-cover rounded-md md:rounded-2xl"
@@ -135,15 +135,15 @@ export default function Home({ DataCatego, DataGene }) {
           </div>
         </div>
         <div className="bg-[url('/static/images/bg_home_ข้อมูลให้บริการ.png')] object-cover bg-bottom">
-          <div className="space-y-2 pt-28 pb-20 md:space-y-2">
-            <h1 className="text-lg font-extrabold text-center tracking-tight text-[#0966D5] dark:text-gray-100 sm:leading-4 md:text-5xl md:leading-6">
+          <div className="space-y-2 pt-48 pb-10 md:space-y-2">
+            <h1 className="text-lg font-extrabold text-center tracking-tight text-[#004DB3] dark:text-gray-100 sm:leading-4 md:text-5xl md:leading-6">
               ข้อมูลให้บริการ
             </h1>
             {/* <p className="text-lg leading-7 text-gray-500 text-center dark:text-gray-400">
             {siteMetadata.description}
           </p> */}
           </div>
-          <ul className="px-0 md:px-52 md:px-10">
+          <ul className="px-0 md:px-72">
             <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-14 md:gap-y-20 items-baseline">
               {!DataCatego.length && 'No posts found.'}
               {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
@@ -170,11 +170,11 @@ export default function Home({ DataCatego, DataGene }) {
                       <div>
                         <Link href={`/${slug}`}>
                           <Image
-                            className="w-full h-[280px] object-cover rounded-md md:rounded-2xl"
+                            className="w-full h-[250px] object-cover rounded-md md:rounded-2xl"
                             src={'https://baansuanpui.com/' + cover_path}
                             alt={alt_cover}
-                            width="500"
-                            height="500"
+                            width="300"
+                            height="300"
                           />
                         </Link>
                         <div className="py-4">
