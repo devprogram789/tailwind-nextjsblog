@@ -55,7 +55,11 @@ export default function Footer() {
             <h3 className="text-lg leading-9 font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'โทรศัพท์' : 'Telephone'}
             </h3>
-            <p className="text-base leading-9 text-[#004FB3]">039-310-000</p>
+            <p className="text-base leading-9 text-[#004FB3]">039-310000 ต่อ 4112</p>
+            <h3 className="text-lg leading-9 font-semibold text-[#004FB3]">
+              {languageSW.Language == 'th' ? 'แฟกซ์' : 'Fax'}
+            </h3>
+            <p className="text-base leading-9 text-[#004FB3]">039-310128</p>
             <h3 className="text-lg font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'อีเมล์' : 'Email'}
             </h3>
@@ -73,7 +77,7 @@ export default function Footer() {
             <h3 className="text-lg leading-9 font-semibold text-[#004FB3]">
               {languageSW.Language == 'th' ? 'ช่องทางการติดต่อ' : 'Contact'}
             </h3>
-            <div className="w-full flex items-center gap-2 mt-4">
+            <div className="w-full flex items-center gap-3 mt-4">
               <div>
                 <Link
                   href={'https://www.facebook.com/buu.ac.th/'}
@@ -82,7 +86,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    className="w-16 h-16 object-contain"
+                    className="w-14 h-14 object-contain"
                     src={facebook_icon}
                     alt="facebook buu"
                   />
@@ -95,7 +99,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Image className="w-16 h-16 object-contain" src={Line_icon} alt="line buu" />
+                  <Image className="w-14 h-14 object-contain" src={Line_icon} alt="line buu" />
                 </Link>
               </div>
               <div>
@@ -106,7 +110,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    className="w-16 h-16 object-contain"
+                    className="w-14 h-14 object-contain"
                     src={youtube_icon}
                     alt="youtube buu"
                   />

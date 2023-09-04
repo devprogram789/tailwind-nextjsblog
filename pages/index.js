@@ -95,7 +95,7 @@ export default function Home({ DataCatego, DataGene }) {
                 <div>
                   {itexm.type == 'image' ? (
                     <Image
-                      className="w-full h-full object-contain mt-14 md:mt-22"
+                      className="w-full h-full object-contain mt-14 md:mt-16"
                       src={itexm.path}
                       alt={itexm.title_th}
                       width="1920"
@@ -114,7 +114,7 @@ export default function Home({ DataCatego, DataGene }) {
         </div>
         <div className="py-0 flex sm:block">
           <div className="relative pt-20 bg-[url('/static/images/bg_data_center_2.png')] bg-contain md:bg-cover">
-            <div className="px-0 md:px-72 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-8 content-end gap-10 py-20">
+            <div className="px-0 md:px-72 w-full h-auto mt-10 md:mt-64 grid grid-cols-1 md:grid-cols-9 content-end gap-10 py-20">
               <div className="col-span-1 md:col-span-5 px-4 md:px-0 w-full h-auto ">
                 <Image
                   className="w-full h-[500px] object-cover rounded-md md:rounded-2xl"
@@ -124,7 +124,7 @@ export default function Home({ DataCatego, DataGene }) {
                   height="400"
                 />
               </div>
-              <div className="rounded-md md:rounded-2xl px-4 py-4 bg-white/80 h-[500px] col-span-1 md:col-span-3 text-gray-100 overflow-y-auto">
+              <div className="rounded-md md:rounded-2xl p-6 bg-white/80 h-[500px] col-span-1 md:col-span-4 text-gray-100 overflow-y-auto">
                 <p className="prose  text-gray-700">
                   {languageSW.Language == 'th'
                     ? DataGene['data'][0].contact_us_th
@@ -144,7 +144,7 @@ export default function Home({ DataCatego, DataGene }) {
           </p> */}
           </div>
           <ul className="px-0 md:px-72">
-            <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-14 md:gap-y-20 items-baseline">
+            <li className="py-4 md:py-12 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-20 items-baseline">
               {!DataCatego.length && 'No posts found.'}
               {DataCatego.slice(0, MAX_DISPLAY).map((frontMatter, indxs) => {
                 //const { slug, date, title, summary, tags, images } = frontMatter
@@ -164,7 +164,7 @@ export default function Home({ DataCatego, DataGene }) {
                 return (
                   <article
                     key={indxs}
-                    className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:px-7 md:py-7"
+                    className="bg-white drop-shadow-lg rounded-md md:rounded-2xl px-2 py-2 md:p-6 "
                   >
                     <div className="space-y-2 ">
                       <div>
@@ -177,12 +177,12 @@ export default function Home({ DataCatego, DataGene }) {
                             height="300"
                           />
                         </Link>
-                        <div className="py-4">
+                        <div className="pt-4">
                           <div className="text-center">
                             <h2 className="text-lg md:text-2xl font-bold leading-8 tracking-tight">
                               <Link href={`/${slug}`}>
                                 <div>
-                                  <h2 className="text-2xl text-[#008080] leading-12">{title_en}</h2>
+                                  <h2 className="text-xl text-[#008080] leading-12">{title_en}</h2>
                                   <p className="text-base text-gray-500/80 leading-6">{title_th}</p>
                                 </div>
                               </Link>

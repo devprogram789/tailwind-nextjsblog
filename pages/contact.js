@@ -27,7 +27,7 @@ export default function Contact() {
               ข้อมูลติดต่อ
             </h1>
             <p className="text-lg text-center leading-7 text-[#004DB3] dark:text-gray-400">
-              CONTECT US
+              CONTACT US
             </p>
           </div>
           <div className="flex justify-center py-2 md:py-4">
